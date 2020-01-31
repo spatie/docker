@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-docker-storage.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/:package_name)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
 
-*This package is in construction, do not consider it as a release, beta or even alpha. Do not use this in production and if I were you even not in your local setup!*
+**This package is in construction, do not consider it as a release, beta or even alpha. Do not use this in production and if I were you even not in your local setup!**
 
 This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
 
