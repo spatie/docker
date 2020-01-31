@@ -1,0 +1,45 @@
+{
+    "name": "spatie/docker",
+    "description": "Run a docker container in your PHPUnit tests",
+    "keywords": [
+        "spatie",
+        "docker"
+    ],
+    "homepage": "https://github.com/spatie/phpunit-docker-storage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ruben Van Assche",
+            "email": "ruben@spatie.be",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "larapack/dd": "^1.1",
+        "spatie/temporary-directory": "^1.2",
+        "symfony/process": "^5.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.3",
+        "phpunit/phpunit": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\Docker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\Docker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
