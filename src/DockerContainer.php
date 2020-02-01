@@ -17,7 +17,7 @@ class DockerContainer
         return new self();
     }
 
-    public function withAuthorizedKey(string $key): DockerContainer
+    public function installPublicKey(string $key): DockerContainer
     {
         $config = clone $this;
 

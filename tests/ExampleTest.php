@@ -23,9 +23,9 @@ class ExampleTest extends TestCase
             ->named('Spatie')
             ->port(4848)
             ->image('spatie/dock')
-            ->withAuthorizedKey('YOUR_KEY');
+            ->installPublicKey('YOUR_KEY');
 
         $containerInstance = $docker->start($container);
-
+dd($containerInstance);
     }
 }
