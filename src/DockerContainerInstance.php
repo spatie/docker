@@ -14,10 +14,11 @@ class DockerContainerInstance
         DockerContainer $config,
         string $dockerIdentifier,
         string $name
-    )
-    {
+    ) {
         $this->config = $config;
+
         $this->dockerIdentifier = $dockerIdentifier;
+
         $this->name = $name;
     }
 

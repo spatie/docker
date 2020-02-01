@@ -6,9 +6,9 @@ class DockerContainer
 {
     public array $authorizedKeys = [];
 
-    public ?string $name = null;
+    public string $name = '';
 
-    public ?string $image = null;
+    public string $image = '';
 
     public int $port = 4848;
 
@@ -19,37 +19,29 @@ class DockerContainer
 
     public function installPublicKey(string $key): DockerContainer
     {
-        $config = clone $this;
+        $this->authorizedKeys[] = $key;
 
-        $config->authorizedKeys[] = $key;
-
-        return $config;
+        return $this;
     }
 
     public function named(string $name): DockerContainer
     {
-        $config = clone $this;
+        $this->name = $name;
 
-        $config->name = $name;
-
-        return $config;
+        return $this;
     }
 
     public function image(string $image): DockerContainer
     {
-        $config = clone $this;
+        $this->image = $image;
 
-        $config->image = $image;
-
-        return $config;
+        return $this;
     }
 
     public function port(int $port): DockerContainer
     {
-        $config = clone $this;
+        $this->port = $port;
 
-        $config->port = $port;
-
-        return $config;
+        return $this;
     }
 }
