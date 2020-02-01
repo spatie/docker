@@ -37,6 +37,8 @@ class Docker
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
+
+        return $dockerContainer;
     }
 
     public function runInContainer(
