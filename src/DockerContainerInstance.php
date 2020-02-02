@@ -60,7 +60,7 @@ class DockerContainerInstance
     }
 
     public function run(string $command): Process {
-        $fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} {$command}";
+        $fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} '{$command}'";
 
         $process = Process::fromShellCommandline($fullCommand);
         $process->run();
@@ -76,10 +76,10 @@ class DockerContainerInstance
     {
         $authorizedKeysPath = "/root/.ssh/authorized_keys";
 
-        $this->run('touch /root/.ssh/authorized_keys');
+        $this->run("mkdir /root");
+        $this->run("mkdir /root/.ssh/");
 
         $this->run('echo "' . $publicKeyContents .'" >> ' . $authorizedKeysPath);
-
 
         $this->run("chmod 600 {$authorizedKeysPath}");
         $this->run("chown root:root {$authorizedKeysPath}");

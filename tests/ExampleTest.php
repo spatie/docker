@@ -12,19 +12,12 @@ class ExampleTest extends TestCase
     /** @test */
     public function true_is_true()
     {
-        /**
-         * First start the docker daemon, should be included in the package but that isn't yet done
-         * Then create a Spatie docker instance as such `docker build -t spatie/dock .`
-         */
-        $container = DockerContainer::new()
+        echo DockerContainer::new()
             ->named('Spatie')
             ->port(4848)
             ->image('spatie/dock')
             ->start()
-            ->addPublicKey();
-
-        $containerInstance = $docker->start($container);
-
-        dump($containerInstance);
+            ->addPublicKey(file_get_contents(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub'))
+        ->getDockerIdentifier();
     }
 }
