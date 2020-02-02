@@ -17,7 +17,8 @@ class ExampleTest extends TestCase
             ->port(4848)
             ->image('spatie/dock')
             ->start()
-            ->addPublicKey(file_get_contents(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub'))
+            ->addFiles(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub', '/root/.ssh/authorized_keys')
+            //->addPublicKey(file_get_contents(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub'))
         ->getDockerIdentifier();
     }
 }
