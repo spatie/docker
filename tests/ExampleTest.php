@@ -16,16 +16,15 @@ class ExampleTest extends TestCase
          * First start the docker daemon, should be included in the package but that isn't yet done
          * Then create a Spatie docker instance as such `docker build -t spatie/dock .`
          */
-
-        $docker = Docker::new();
-
         $container = DockerContainer::new()
             ->named('Spatie')
             ->port(4848)
             ->image('spatie/dock')
-            ->installPublicKey('YOUR_KEY');
+            ->start()
+            ->addPublicKey();
 
         $containerInstance = $docker->start($container);
-dd($containerInstance);
+
+        dump($containerInstance);
     }
 }

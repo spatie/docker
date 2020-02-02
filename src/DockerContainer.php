@@ -2,10 +2,11 @@
 
 namespace Spatie\Docker;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class DockerContainer
 {
-    public array $authorizedKeys = [];
-
     public string $name = '';
 
     public string $image = '';
@@ -15,13 +16,6 @@ class DockerContainer
     public static function new(): DockerContainer
     {
         return new self();
-    }
-
-    public function installPublicKey(string $key): DockerContainer
-    {
-        $this->authorizedKeys[] = $key;
-
-        return $this;
     }
 
     public function named(string $name): DockerContainer
@@ -43,5 +37,26 @@ class DockerContainer
         $this->port = $port;
 
         return $this;
+    }
+
+    public function start()
+    {
+        $name = $this->name . '-' . substr(uniqid(), 0, 8);
+
+        $command = "docker run -p {$this->port}:22 --name {$name} -d --rm {$this->image}";
+
+        $process = Process::fromShellCommandline($command);
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return new DockerContainerInstance(
+            $this,
+            $process->getOutput(),
+            $name
+        );
     }
 }
