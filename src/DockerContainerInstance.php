@@ -60,6 +60,7 @@ class DockerContainerInstance
     }
 
     public function run(string $command): Process {
+
         $fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} '{$command}'";
 
         $process = Process::fromShellCommandline($fullCommand);
