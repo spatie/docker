@@ -28,8 +28,9 @@
         "symfony/process": "^4.0|^5.0"
     },
     "require-dev": {
-        "symfony/var-dumper": "^4.3",
-        "phpunit/phpunit": "^8.2"
+        "phpunit/phpunit": "^8.2",
+        "spatie/ssh": "dev-master",
+        "symfony/var-dumper": "^4.3"
     },
     "autoload": {
         "psr-4": {
