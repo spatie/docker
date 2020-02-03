@@ -27,7 +27,7 @@ class DockerContainerInstance
 
     public function __destruct()
     {
-        $this->stop();
+        //$this->stop();
     }
 
     public function stop()
