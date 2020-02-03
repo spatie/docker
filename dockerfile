@@ -2,11 +2,15 @@ FROM ubuntu:latest
 MAINTAINER Ruben Van Assche <ruben@spatie.be>
 
 # add openssh and clean
-RUN apt-get update && apt-get install -y openssh-server sed
+RUN apt-get update && apt-get install -y openssh-server sed nano
 
 RUN mkdir /var/run/sshd
 
 COPY keys /etc/ssh
+RUN chmod 600 /etc/ssh/ssh_host_dsa_key
+RUN chmod 600 /etc/ssh/ssh_host_ecdsa_key
+RUN chmod 600 /etc/ssh/ssh_host_ed25519_key
+RUN chmod 600 /etc/ssh/ssh_host_rsa_key
 
 RUN echo "root:root" | chpasswd
 

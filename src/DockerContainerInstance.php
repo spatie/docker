@@ -27,7 +27,9 @@ class DockerContainerInstance
 
     public function __destruct()
     {
-        //$this->stop();
+        if ($this->config->stopAfterCompletion) {
+            $this->stop();
+        }
     }
 
     public function stop()
@@ -61,7 +63,8 @@ class DockerContainerInstance
 
     public function run(string $command): Process {
 
-        $fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} '{$command}'";
+        $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
+        //$fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} {$command}'";
 
         $process = Process::fromShellCommandline($fullCommand);
         $process->run();
@@ -73,11 +76,11 @@ class DockerContainerInstance
         return $process;
     }
 
-    public function addPublicKey(string $publicKeyContents)
+    public function addPublicKey(string $publicKeyContents): self
     {
         $authorizedKeysPath = "/root/.ssh/authorized_keys";
 
-        $this->run('echo "' . $publicKeyContents .'" >> ' . $authorizedKeysPath);
+        $this->run('echo \'' . trim($publicKeyContents) .'\' >> ' . $authorizedKeysPath);
 
         $this->run("chmod 600 {$authorizedKeysPath}");
         $this->run("chown root:root {$authorizedKeysPath}");

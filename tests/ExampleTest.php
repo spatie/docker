@@ -12,12 +12,13 @@ class ExampleTest extends TestCase
     /** @test */
     public function true_is_true()
     {
-        echo DockerContainer::new()
+        DockerContainer::new()
             ->named('Spatie')
+            ->stopAfterCompletion()
             ->port(4848)
             ->image('spatie/dock')
             ->start()
-            ->addPublicKey(file_get_contents(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub'))
-        ->getDockerIdentifier();
+            ->addPublicKey(file_get_contents('/Users/freek/.ssh/id_rsa.pub'))
+            ->addFiles(__DIR__  . '/../src', '/root');
     }
 }

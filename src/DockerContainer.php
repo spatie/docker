@@ -13,6 +13,8 @@ class DockerContainer
 
     public int $port = 4848;
 
+    public bool $stopAfterCompletion = false;
+
     public static function new(): DockerContainer
     {
         return new self();
@@ -39,11 +41,18 @@ class DockerContainer
         return $this;
     }
 
+    public function stopAfterCompletion(bool $stopAfterCompletion = true): self
+    {
+        $this->stopAfterCompletion = $stopAfterCompletion;
+
+        return $this;
+    }
+
     public function start()
     {
         $name = $this->name . '-' . substr(uniqid(), 0, 8);
 
-        $command = "docker run -p {$this->port}:22 --name {$name} -d --rm {$this->image}";
+        $command = "docker run -p {$this->port}:22 --name {$this->name} -d --rm {$this->image}";
 
         $process = Process::fromShellCommandline($command);
 
