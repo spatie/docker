@@ -2,11 +2,14 @@
 
 namespace Spatie\Docker;
 
+use Spatie\Macroable\Macroable;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class DockerContainer
 {
+    use Macroable;
+
     public string $name = '';
 
     public string $image = '';

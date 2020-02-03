@@ -2,11 +2,14 @@
 
 namespace Spatie\Docker;
 
+use Spatie\Macroable\Macroable;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class DockerContainerInstance
 {
+    use Macroable;
+
     private DockerContainer $config;
 
     private string $dockerIdentifier;
@@ -64,7 +67,6 @@ class DockerContainerInstance
     public function run(string $command): Process {
 
         $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
-        //$fullCommand = "docker exec -i {$this->getShortDockerIdentifier()} {$command}'";
 
         $process = Process::fromShellCommandline($fullCommand);
         $process->run();
