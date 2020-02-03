@@ -5,7 +5,6 @@ namespace Spatie\Docker\Tests;
 use PHPUnit\Framework\TestCase;
 use Spatie\Docker\Docker;
 use Spatie\Docker\DockerContainer;
-use Spatie\Docker\DockerContainerInstance;
 
 class ExampleTest extends TestCase
 {
@@ -18,6 +17,7 @@ class ExampleTest extends TestCase
             ->port(4848)
             ->image('spatie/dock')
             ->start()
+            // TODO use other key
             ->addPublicKey(file_get_contents('/Users/freek/.ssh/id_rsa.pub'))
             ->addFiles(__DIR__  . '/../src', '/root');
     }
