@@ -22,6 +22,11 @@ class DockerTest extends TestCase
             ->stopAfterCompletion();
     }
 
+    public function tearDown(): void
+    {
+        parent::tearDown();
+    }
+
     /** @test */
     public function it_can_start_a_container()
     {
@@ -43,6 +48,30 @@ class DockerTest extends TestCase
         $process = (new Ssh('root', '0.0.0.0', 4848))->execute('whoami');
 
         $this->assertEquals('root', trim($process->getOutput()));
+
+        $container->stop();
+    }
+
+    /** @test */
+    public function files_can_be_added_to_the_container()
+    {
+        $container = $this->container->start()
+            ->addPublicKey(file_get_contents('/Users/freek/.ssh/id_rsa.pub'))
+            ->addFiles(__DIR__ . '/stubs', '/test');
+
+        $process = (new Ssh('root', '0.0.0.0', 4848))->execute([
+           'cd /test',
+           'find .',
+        ]);
+
+        $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
+
+        $this->assertEquals([
+            '.',
+            './subDirectory',
+            './subDirectory/1.txt',
+            './subDirectory/2.txt'
+        ], $filesOnContainer);
 
         $container->stop();
     }
