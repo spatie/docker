@@ -1,9 +1,9 @@
 # Manage docker containers with PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/phpunit-docker-storage/run-tests?label=tests)](https://github.com/spatie/docker/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-docker-storage.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/docker)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/docker.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/docker/run-tests?label=tests)](https://github.com/spatie/docker/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/docker.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/docker)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/docker.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
 
 This package provides a nice way to start docker containers and execute commands on them.
 

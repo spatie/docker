@@ -5,7 +5,7 @@
         "spatie",
         "docker"
     ],
-    "homepage": "https://github.com/spatie/phpunit-docker-storage",
+    "homepage": "https://github.com/spatie/docker",
     "license": "MIT",
     "authors": [
         {
