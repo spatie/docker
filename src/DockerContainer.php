@@ -65,10 +65,12 @@ class DockerContainer
             throw new ProcessFailedException($process);
         }
 
+        $dockerIdentifier = $process->getOutput();
+
         return new DockerContainerInstance(
             $this,
-            $process->getOutput(),
-            $name
+            $dockerIdentifier,
+            $name,
         );
     }
 }
