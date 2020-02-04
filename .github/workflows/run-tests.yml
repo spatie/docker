@@ -17,9 +17,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      
-      - name: Cat
-        run: cat  ~/.ssh/known_hosts
 
       - name: Cache dependencies
         uses: actions/cache@v1
