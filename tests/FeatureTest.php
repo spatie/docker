@@ -18,8 +18,6 @@ class FeatureTest extends TestCase
     {
         parent::setUp();
 
-        dump(file_get_contents('/home/runner/.ssh/known_hosts'). PHP_EOL);
-
         $this->container = (new DockerContainer('spatie/docker'))
             ->name('spatie_docker_test')
             ->mapPort(4848, 22)
