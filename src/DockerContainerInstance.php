@@ -79,9 +79,10 @@ class DockerContainerInstance
         $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
 
         $process = Process::fromShellCommandline($fullCommand);
+
         $process->run();
 
-        return $process->getE;
+        return $process;
     }
 
     public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = "/root/.ssh/authorized_keys"): self

@@ -5,6 +5,7 @@ namespace Spatie\Docker\Tests;
 use PHPUnit\Framework\TestCase;
 use Spatie\Docker\Docker;
 use Spatie\Docker\DockerContainer;
+use Spatie\Docker\Exceptions\CouldNotStartDockerContainer;
 use Spatie\Ssh\Ssh;
 
 class FeatureTest extends TestCase
@@ -20,7 +21,7 @@ class FeatureTest extends TestCase
         $this->container = (new DockerContainer('spatie/docker'))
             ->name('spatie_docker_test')
             ->mapPort(4848, 22)
-            ->stopAfterCompletion();
+            ->stopOnDestruct();
 
         $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
             ->usePrivateKey(__DIR__ . '/keys/spatie_docker_package_id_rsa');
@@ -40,6 +41,7 @@ class FeatureTest extends TestCase
         $container = (new DockerContainer('spatie/docker'))
             ->name('spatie_docker_test')
             ->mapPort(4848, 22)
+            ->stopOnDestruct()
             ->start()
             ->addPublicKey(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub');
 
@@ -72,5 +74,13 @@ class FeatureTest extends TestCase
         ], $filesOnContainer);
 
         $container->stop();
+    }
+
+    /** @test */
+    public function it_will_throw_an_exception_if_the_container_could_not_start()
+    {
+        $this->expectException(CouldNotStartDockerContainer::class);
+
+        (new DockerContainer('non-existing-image'))->start();
     }
 }
