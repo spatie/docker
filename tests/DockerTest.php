@@ -11,6 +11,8 @@ class DockerTest extends TestCase
 {
     private DockerContainer $container;
 
+    private Ssh $ssh;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -20,6 +22,9 @@ class DockerTest extends TestCase
             ->named('spatie_docker_test')
             ->port(4848)
             ->stopAfterCompletion();
+
+        $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
+            ->usePrivateKey(__DIR__ . '/keys/spatie_docker_package_id_rsa');
     }
 
     public function tearDown(): void
@@ -43,9 +48,9 @@ class DockerTest extends TestCase
             ->named('spatie_docker_test')
             ->port(4848)
             ->start()
-            ->addPublicKey(file_get_contents('/Users/freek/.ssh/id_rsa.pub'));
+            ->addPublicKey(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub');
 
-        $process = (new Ssh('root', '0.0.0.0', 4848))->execute('whoami');
+        $process = $this->ssh->execute('whoami');
 
         $this->assertEquals('root', trim($process->getOutput()));
 
@@ -56,13 +61,13 @@ class DockerTest extends TestCase
     public function files_can_be_added_to_the_container()
     {
         $container = $this->container->start()
-            ->addPublicKey(file_get_contents('/Users/freek/.ssh/id_rsa.pub'))
+            ->addPublicKey('/Users/freek/.ssh/id_rsa.pub')
             ->addFiles(__DIR__ . '/stubs', '/test');
 
-        $process = (new Ssh('root', '0.0.0.0', 4848))->execute([
-           'cd /test',
-           'find .',
-        ]);
+        $process = $this->ssh->execute([
+                'cd /test',
+                'find .',
+            ]);
 
         $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
 

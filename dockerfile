@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Ruben Van Assche <ruben@spatie.be>
 
 # add openssh and clean
-RUN apt-get update && apt-get install -y openssh-server sed nano
+RUN apt-get update && apt-get install -y openssh-server sed nano rsync
 
 RUN mkdir /var/run/sshd
 

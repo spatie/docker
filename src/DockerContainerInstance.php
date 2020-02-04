@@ -78,11 +78,13 @@ class DockerContainerInstance
         return $process;
     }
 
-    public function addPublicKey(string $publicKeyContents): self
+    public function addPublicKey(string $pathToPublicKey): self
     {
         $authorizedKeysPath = "/root/.ssh/authorized_keys";
 
-        $this->run('echo \'' . trim($publicKeyContents) .'\' >> ' . $authorizedKeysPath);
+        $publicKeyContents = trim(file_get_contents($pathToPublicKey));
+
+        $this->run('echo \'' . $publicKeyContents .'\' >> ' . $authorizedKeysPath);
 
         $this->run("chmod 600 {$authorizedKeysPath}");
         $this->run("chown root:root {$authorizedKeysPath}");
