@@ -26,6 +26,12 @@ echo $skeleton->echoPhrase('Hello, Spatie!');
 
 ### Testing
 
+To run the test you must build the docker container with
+
+````bash
+docker build -t spatie/dock ./tests/docker
+````
+
 ``` bash
 composer test
 ```
