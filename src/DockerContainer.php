@@ -10,37 +10,71 @@ class DockerContainer
 {
     use Macroable;
 
+    public string $image = '';
+
     public string $name = '';
 
-    public string $image = '';
+    public bool $daemonize = true;
 
     /**
      * @var \Spatie\Docker\PortMapping[]
      */
     public array $portMappings = [];
 
+    public bool $cleanUpAfterExit = true;
+
     public bool $stopAfterCompletion = false;
 
-    public static function new(): DockerContainer
+    public function __construct(string $image, string $name = '')
     {
-        return new self();
-    }
+        $this->image = $image;
 
-    public function named(string $name): DockerContainer
-    {
         $this->name = $name;
-
-        return $this;
     }
 
-    public function image(string $image): DockerContainer
+    public function image(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function mapPort(int $portOnHost, $portOnDocker): DockerContainer
+    public function named(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function daemonize(bool $daemonize = true): self
+    {
+        $this->daemonize = $daemonize;
+
+        return $this;
+    }
+
+    public function doNotDeamonize(): self
+    {
+        $this->daemonize = false;
+
+        return $this;
+    }
+
+    public function cleanUpAfterExit(bool $cleanUpAfterExit): self
+    {
+        $this->cleanUpAfterExit = $cleanUpAfterExit;
+
+        return $this;
+    }
+
+    public function doNotCleanUpAfterExit(): self
+    {
+        $this->cleanUpAfterExit = false;
+
+        return $this;
+    }
+
+    public function mapPort(int $portOnHost, $portOnDocker): self
     {
         $this->portMappings[] = new PortMapping($portOnHost, $portOnDocker);
 
@@ -54,11 +88,14 @@ class DockerContainer
         return $this;
     }
 
+    public function getStartCommand(): string
+    {
+        return "docker run {$this->getExtraOptions()} {$this->image}";
+    }
+
     public function start()
     {
-        $portMappings = implode(' ', $this->portMappings);
-
-        $command = "docker run {$portMappings} --name {$this->name} -d --rm {$this->image}";
+        $command = $this->getStartCommand();
 
         $process = Process::fromShellCommandline($command);
 
@@ -75,5 +112,28 @@ class DockerContainer
             $dockerIdentifier,
             $this->name,
         );
+    }
+
+    protected function getExtraOptions(): string
+    {
+        $extraOptions = [];
+
+        if (count($this->portMappings)) {
+            $extraOptions[] = implode(' ', $this->portMappings);
+        }
+
+        if ($this->name !== '') {
+            $extraOptions[] = "--name {$this->name}";
+        }
+
+        if ($this->daemonize) {
+            $extraOptions[] = '-d';
+        }
+
+        if ($this->cleanUpAfterExit) {
+            $extraOptions[] = '--rm';
+        }
+
+        return implode(' ', $extraOptions);
     }
 }
