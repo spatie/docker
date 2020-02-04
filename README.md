@@ -154,6 +154,23 @@ Files can be added to an instance with `addFiles`.
 $instance->addFiles($fileOrDirectoryOnHost, $pathInContainer);
 ```
 
+#### Adding other functions on the docker instance
+
+The `Spatie\Docker\ContainerInstance` class is [macroable](https://github.com/spatie/macroable). This means you can add extra functions to it.
+
+````php
+Spatie\Docker\DockerContainerInstance::macro('whoAmI', function () {
+    $process = $containerInstance->run('whoami');
+
+
+    return $process->getOutput();
+});
+
+$containerInstance = (new DockerContainer($imageName))->start();
+
+$containerInstace->whoAmI(); // returns of name of user in the docker container
+````
+
 ### Testing
 
 Before running the tests for the first time, you must build the `spatie/docker` container with:

@@ -4,6 +4,7 @@ namespace Spatie\Docker\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\Docker\DockerContainer;
+use Spatie\Docker\DockerContainerInstance;
 use Spatie\Docker\Exceptions\CouldNotStartDockerContainer;
 use Spatie\Ssh\Ssh;
 
@@ -81,5 +82,24 @@ class FeatureTest extends TestCase
         $this->expectException(CouldNotStartDockerContainer::class);
 
         (new DockerContainer('non-existing-image'))->start();
+    }
+
+    /** @test */
+    public function the_docker_container_is_macroable()
+    {
+        DockerContainerInstance::macro('whoAmI', function() {
+            $process = $this->execute('whoami');
+
+            return trim($process->getOutput());
+        });
+
+        $userName = (new DockerContainer('spatie/docker'))
+            ->name('spatie_docker_test')
+            ->mapPort(4848, 22)
+            ->stopOnDestruct()
+            ->start()
+            ->whoAmI();
+
+        $this->assertEquals('root', $userName);
     }
 }
