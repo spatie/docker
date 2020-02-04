@@ -68,7 +68,7 @@ class DockerContainer
         return new DockerContainerInstance(
             $this,
             $dockerIdentifier,
-            $name,
+            $this->name,
         );
     }
 }

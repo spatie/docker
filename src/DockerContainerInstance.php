@@ -35,13 +35,15 @@ class DockerContainerInstance
         }
     }
 
-    public function stop()
+    public function stop(): Process
     {
         $fullCommand = "docker stop {$this->getShortDockerIdentifier()}";
 
         $process = Process::fromShellCommandline($fullCommand);
 
         $process->run();
+
+        return $process;
     }
 
     public function getName(): string
@@ -78,16 +80,14 @@ class DockerContainerInstance
         return $process;
     }
 
-    public function addPublicKey(string $pathToPublicKey): self
+    public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = "/root/.ssh/authorized_keys"): self
     {
-        $authorizedKeysPath = "/root/.ssh/authorized_keys";
-
         $publicKeyContents = trim(file_get_contents($pathToPublicKey));
 
-        $this->run('echo \'' . $publicKeyContents .'\' >> ' . $authorizedKeysPath);
+        $this->run('echo \'' . $publicKeyContents .'\' >> ' . $pathToAuthorizedKeys);
 
-        $this->run("chmod 600 {$authorizedKeysPath}");
-        $this->run("chown root:root {$authorizedKeysPath}");
+        $this->run("chmod 600 {$pathToAuthorizedKeys}");
+        $this->run("chown root:root {$pathToAuthorizedKeys}");
 
         return $this;
     }
