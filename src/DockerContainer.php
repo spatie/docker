@@ -93,7 +93,7 @@ class DockerContainer
         return "docker run {$this->getExtraOptions()} {$this->image}";
     }
 
-    public function start()
+    public function start(): DockerContainerInstance
     {
         $command = $this->getStartCommand();
 
