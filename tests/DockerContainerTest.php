@@ -25,6 +25,12 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_instantiate_via_the_create_method()
+    {
+        $this->assertInstanceOf(DockerContainer::class, DockerContainer::create('spatie/docker'));
+    }
+
+    /** @test */
     public function it_can_not_be_deamonized()
     {
         $command = $this->container
