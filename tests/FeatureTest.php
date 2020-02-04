@@ -87,7 +87,7 @@ class FeatureTest extends TestCase
     /** @test */
     public function the_docker_container_is_macroable()
     {
-        DockerContainerInstance::macro('whoAmI', function() {
+        DockerContainerInstance::macro('whoAmI', function () {
             /** @var \Symfony\Component\Process\Process $process */
             $process = $this->execute('whoami');
 
