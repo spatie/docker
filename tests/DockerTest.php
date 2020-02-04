@@ -27,11 +27,6 @@ class DockerTest extends TestCase
             ->usePrivateKey(__DIR__ . '/keys/spatie_docker_package_id_rsa');
     }
 
-    public function tearDown(): void
-    {
-        parent::tearDown();
-    }
-
     /** @test */
     public function it_can_start_a_container()
     {
