@@ -53,8 +53,6 @@ class DockerContainer
 
     public function start()
     {
-        $name = $this->name . '-' . substr(uniqid(), 0, 8);
-
         $command = "docker run -p {$this->port}:22 --name {$this->name} -d --rm {$this->image}";
 
         $process = Process::fromShellCommandline($command);
