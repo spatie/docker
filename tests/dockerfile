@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Ruben Van Assche <ruben@spatie.be>
 
 # add openssh and clean
-RUN apt-get update && apt-get install -y openssh-server sed nano rsync
+RUN apt-get update && apt-get install -y openssh-server sed nano
 
 RUN mkdir /var/run/sshd
 
@@ -18,7 +18,6 @@ RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_confi
 RUN sed -ri 's/^#?PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 RUN sed -ri 's/^#?SyslogFacility AUTH/SyslogFacility AUTH/g' /etc/ssh/sshd_config
 RUN sed -ri 's/^#?LogLevel INFO/LogLevel INFO/g' /etc/ssh/sshd_config
-
 
 RUN mkdir /root/.ssh
 RUN touch /root/.ssh/authorized_keys
