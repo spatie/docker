@@ -18,6 +18,8 @@ class FeatureTest extends TestCase
     {
         parent::setUp();
 
+        dump(file_get_contents('/home/runner/.ssh/known_hosts'). PHP_EOL);
+
         $this->container = (new DockerContainer('spatie/docker'))
             ->name('spatie_docker_test')
             ->mapPort(4848, 22)
@@ -46,8 +48,6 @@ class FeatureTest extends TestCase
             ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub');
 
         $process = $this->ssh->execute('whoami');
-
-        dd($process->getErrorOutput());
 
         $this->assertEquals('root', trim($process->getOutput()));
 
