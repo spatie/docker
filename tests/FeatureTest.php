@@ -66,7 +66,7 @@ class FeatureTest extends TestCase
 
         $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
 
-        $this->assertEquals([
+        $this->assertEqualsCanonicalizing([
             '.',
             './subDirectory',
             './subDirectory/1.txt',
