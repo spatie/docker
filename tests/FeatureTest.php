@@ -47,6 +47,8 @@ class FeatureTest extends TestCase
 
         $process = $this->ssh->execute('whoami');
 
+        dd($process->getErrorOutput());
+
         $this->assertEquals('root', trim($process->getOutput()));
 
         $container->stop();
