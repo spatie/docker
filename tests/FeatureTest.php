@@ -7,7 +7,7 @@ use Spatie\Docker\Docker;
 use Spatie\Docker\DockerContainer;
 use Spatie\Ssh\Ssh;
 
-class DockerTest extends TestCase
+class FeatureTest extends TestCase
 {
     private DockerContainer $container;
 
