@@ -28,9 +28,6 @@ jobs:
           
       - name: Patch SSH Daemon
         run: sudo sed -ri 's/^#?   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ssh/ssh_config
-        
-      - name: Cat SSH config
-        run: cat /etc/ssh/ssh_config
 
       - name: Cache dependencies
         uses: actions/cache@v1
