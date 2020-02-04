@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v1
       
       - name: Install sed
-        run: apt-get install sed
+        run: sudo apt-get install sed
       
       - name: Set permissions for keys
         run: |
@@ -27,7 +27,7 @@ jobs:
           chmod 700 tests/keys/spatie_docker_package_id_rsa.pub
           
       - name: Patch SSH Daemon
-        run: sed -ri 's/^#?StrictHostKeyChecking yes/StrictHostKeyChecking no/g' /etc/ssh/sshd_config
+        run: sudo sed -ri 's/^#?StrictHostKeyChecking yes/StrictHostKeyChecking no/g' /etc/ssh/sshd_config
 
       - name: Cache dependencies
         uses: actions/cache@v1
