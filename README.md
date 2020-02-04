@@ -26,12 +26,13 @@ echo $skeleton->echoPhrase('Hello, Spatie!');
 
 ### Testing
 
-To run the test you must build the docker container with
+Before running the tests for the first time, you must build the `spatie/docker` container with:
 
 ````bash
-docker build -t spatie/dock ./tests/docker
+composer build-docker
 ````
 
+Next, you can run the tests with:
 ``` bash
 composer test
 ```

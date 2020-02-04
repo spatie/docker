@@ -44,6 +44,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
+        "build-docker": "docker build -t spatie/dock ./tests/docker",
+
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
