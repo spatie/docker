@@ -3,7 +3,6 @@
 namespace Spatie\Docker\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\Docker\Docker;
 use Spatie\Docker\DockerContainer;
 use Spatie\Docker\Exceptions\CouldNotStartDockerContainer;
 use Spatie\Ssh\Ssh;
@@ -24,7 +23,7 @@ class FeatureTest extends TestCase
             ->stopOnDestruct();
 
         $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
-            ->usePrivateKey(__DIR__ . '/keys/spatie_docker_package_id_rsa');
+            ->usePrivateKey(__DIR__.'/keys/spatie_docker_package_id_rsa');
     }
 
     /** @test */
@@ -43,7 +42,7 @@ class FeatureTest extends TestCase
             ->mapPort(4848, 22)
             ->stopOnDestruct()
             ->start()
-            ->addPublicKey(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub');
+            ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub');
 
         $process = $this->ssh->execute('whoami');
 
@@ -57,12 +56,12 @@ class FeatureTest extends TestCase
     {
         $container = $this->container->start()
             ->addPublicKey('/Users/freek/.ssh/id_rsa.pub')
-            ->addFiles(__DIR__ . '/stubs', '/test');
+            ->addFiles(__DIR__.'/stubs', '/test');
 
         $process = $this->ssh->execute([
-                'cd /test',
-                'find .',
-            ]);
+            'cd /test',
+            'find .',
+        ]);
 
         $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
 
@@ -70,7 +69,7 @@ class FeatureTest extends TestCase
             '.',
             './subDirectory',
             './subDirectory/1.txt',
-            './subDirectory/2.txt'
+            './subDirectory/2.txt',
         ], $filesOnContainer);
 
         $container->stop();

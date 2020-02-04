@@ -63,6 +63,5 @@ class DockerContainerTest extends TestCase
             ->getStartCommand();
 
         $this->assertEquals('docker run -p 4848:22 -p 9000:21 -d --rm spatie/docker', $command);
-
     }
 }

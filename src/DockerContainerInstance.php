@@ -71,7 +71,8 @@ class DockerContainerInstance
      *
      * @return \Symfony\Component\Process\Process
      */
-    public function execute($command): Process {
+    public function execute($command): Process
+    {
         if (is_array($command)) {
             $command = implode(';', $command);
         }
@@ -85,11 +86,11 @@ class DockerContainerInstance
         return $process;
     }
 
-    public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = "/root/.ssh/authorized_keys"): self
+    public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = '/root/.ssh/authorized_keys'): self
     {
         $publicKeyContents = trim(file_get_contents($pathToPublicKey));
 
-        $this->execute('echo \'' . $publicKeyContents .'\' >> ' . $pathToAuthorizedKeys);
+        $this->execute('echo \''.$publicKeyContents.'\' >> '.$pathToAuthorizedKeys);
 
         $this->execute("chmod 600 {$pathToAuthorizedKeys}");
         $this->execute("chown root:root {$pathToAuthorizedKeys}");
@@ -102,7 +103,7 @@ class DockerContainerInstance
         $process = Process::fromShellCommandline("docker cp {$fileOrDirectoryOnHost} {$this->getShortDockerIdentifier()}:{$pathInContainer}");
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
