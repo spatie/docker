@@ -4,7 +4,6 @@ namespace Spatie\Docker;
 
 use Spatie\Docker\Exceptions\CouldNotStartDockerContainer;
 use Spatie\Macroable\Macroable;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class DockerContainer
@@ -102,7 +101,7 @@ class DockerContainer
 
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw CouldNotStartDockerContainer::processFailed($this, $process);
         }
 
