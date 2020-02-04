@@ -23,7 +23,7 @@ class DockerContainer
 
     public bool $cleanUpAfterExit = true;
 
-    public bool $stopAfterCompletion = false;
+    public bool $stopOnDestruct = false;
 
     public function __construct(string $image, string $name = '')
     {
@@ -39,7 +39,7 @@ class DockerContainer
         return $this;
     }
 
-    public function named(string $name): self
+    public function name(string $name): self
     {
         $this->name = $name;
 
@@ -83,7 +83,7 @@ class DockerContainer
 
     public function stopAfterCompletion(bool $stopAfterCompletion = true): self
     {
-        $this->stopAfterCompletion = $stopAfterCompletion;
+        $this->stopOnDestruct = $stopAfterCompletion;
 
         return $this;
     }

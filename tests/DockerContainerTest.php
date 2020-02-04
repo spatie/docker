@@ -48,7 +48,7 @@ class DockerContainerTest extends TestCase
     public function it_can_be_named()
     {
         $command = $this->container
-            ->named('my-name')
+            ->name('my-name')
             ->getStartCommand();
 
         $this->assertEquals('docker run --name my-name -d --rm spatie/docker', $command);

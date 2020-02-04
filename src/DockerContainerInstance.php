@@ -30,7 +30,7 @@ class DockerContainerInstance
 
     public function __destruct()
     {
-        if ($this->config->stopAfterCompletion) {
+        if ($this->config->stopOnDestruct) {
             $this->stop();
         }
     }
@@ -66,35 +66,39 @@ class DockerContainerInstance
         return substr($this->dockerIdentifier, 0, 12);
     }
 
-    public function run(string $command): Process {
+    /**
+     * @param string|array $command
+     *
+     * @return \Symfony\Component\Process\Process
+     */
+    public function execute($command): Process {
+        if (is_array($command)) {
+            $command = implode(';', $command);
+        }
 
         $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
 
         $process = Process::fromShellCommandline($fullCommand);
         $process->run();
 
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return $process;
+        return $process->getE;
     }
 
     public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = "/root/.ssh/authorized_keys"): self
     {
         $publicKeyContents = trim(file_get_contents($pathToPublicKey));
 
-        $this->run('echo \'' . $publicKeyContents .'\' >> ' . $pathToAuthorizedKeys);
+        $this->execute('echo \'' . $publicKeyContents .'\' >> ' . $pathToAuthorizedKeys);
 
-        $this->run("chmod 600 {$pathToAuthorizedKeys}");
-        $this->run("chown root:root {$pathToAuthorizedKeys}");
+        $this->execute("chmod 600 {$pathToAuthorizedKeys}");
+        $this->execute("chown root:root {$pathToAuthorizedKeys}");
 
         return $this;
     }
 
-    public function addFiles(string $sourceOnHost, string $destinationInContainer): self
+    public function addFiles(string $fileOrDirectoryOnHost, string $pathInContainer): self
     {
-        $process = Process::fromShellCommandline("docker cp {$sourceOnHost} {$this->getShortDockerIdentifier()}:{$destinationInContainer}");
+        $process = Process::fromShellCommandline("docker cp {$fileOrDirectoryOnHost} {$this->getShortDockerIdentifier()}:{$pathInContainer}");
         $process->run();
 
         if (!$process->isSuccessful()) {

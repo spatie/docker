@@ -18,7 +18,7 @@ class FeatureTest extends TestCase
         parent::setUp();
 
         $this->container = (new DockerContainer('spatie/docker'))
-            ->named('spatie_docker_test')
+            ->name('spatie_docker_test')
             ->mapPort(4848, 22)
             ->stopAfterCompletion();
 
@@ -38,7 +38,7 @@ class FeatureTest extends TestCase
     public function a_public_key_can_be_added_to_a_running_container()
     {
         $container = (new DockerContainer('spatie/docker'))
-            ->named('spatie_docker_test')
+            ->name('spatie_docker_test')
             ->mapPort(4848, 22)
             ->start()
             ->addPublicKey(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub');
