@@ -17,6 +17,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
+      
+      - name: Install sed
+        run: apt-get install sed
+      
+      - name: Set permissions for keys
+        run: |
+          chmod 700 tests/keys/spatie_docker_package_id_rsa
+          chmod 700 tests/keys/spatie_docker_package_id_rsa.pub
+          
+      - name: Patch SSH Daemon
+        run: sed -ri 's/^#?StrictHostKeyChecking yes/StrictHostKeyChecking no/g' /etc/ssh/sshd_config
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -33,14 +44,6 @@ jobs:
 
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
-
-      - name: Set permissions for keys
-        run: |
-          chmod 700 tests/keys/spatie_docker_package_id_rsa
-          chmod 700 tests/keys/spatie_docker_package_id_rsa.pub
-          
-      - name: Patch SSH Daemon
-        run: sed -ri 's/^#?StrictHostKeyChecking yes/StrictHostKeyChecking no/g' /etc/ssh/sshd_config
 
       - name: Execute tests
         run: vendor/bin/phpunit
