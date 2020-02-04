@@ -43,7 +43,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
+        "test": "chmod -R 700 tests/keys && vendor/bin/phpunit",
         "build-docker": "docker build -t spatie/docker ./tests/docker",
 
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
