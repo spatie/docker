@@ -1,9 +1,9 @@
 # Manage docker containers with PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/phpunit-docker-storage/run-tests?label=tests)](https://github.com/spatie/:package_name/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-docker-storage.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/:package_name)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/phpunit-docker-storage/run-tests?label=tests)](https://github.com/spatie/docker/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/phpunit-docker-storage.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/docker)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/phpunit-docker-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/docker)
 
 **This package is in construction, do not consider it as a release, beta or even alpha. Do not use this in production and if I were you even not in your local setup!**
 
