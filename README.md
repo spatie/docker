@@ -37,17 +37,17 @@ You can get an instance of a docker container using
 $containerInstance = DockerContainer::create($imageName)->start();
 ```
 
-By default the container will be deamonized and it will be cleaned up after it exists.
+By default the container will be daemonized and it will be cleaned up after it exists.
 
 ### Customizing the docker container
 
-#### Prevent deamonization
+#### Prevent daemonization
 
-If you don't want your docker being deamonized, call `doNotDeamonize`.
+If you don't want your docker being daemonized, call `doNotDaemonize`.
 
 ```php
 $containerInstance = DockerContainer::create($imageName)
-    ->doNotDeamonize()
+    ->doNotDaemonize()
     ->start();
 ```
 

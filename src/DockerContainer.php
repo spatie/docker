@@ -58,7 +58,7 @@ class DockerContainer
         return $this;
     }
 
-    public function doNotDeamonize(): self
+    public function doNotDaemonize(): self
     {
         $this->daemonize = false;
 

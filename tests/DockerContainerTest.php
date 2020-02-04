@@ -17,7 +17,7 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
-    public function it_will_deamonize_and_clean_up_the_container_by_default()
+    public function it_will_daemonize_and_clean_up_the_container_by_default()
     {
         $command = $this->container->getStartCommand();
 
@@ -31,10 +31,10 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_not_be_deamonized()
+    public function it_can_not_be_daemonized()
     {
         $command = $this->container
-            ->doNotDeamonize()
+            ->doNotDaemonize()
             ->getStartCommand();
 
         $this->assertEquals('docker run --rm spatie/docker', $command);
