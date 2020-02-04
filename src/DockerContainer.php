@@ -32,6 +32,11 @@ class DockerContainer
         $this->name = $name;
     }
 
+    public static function create(...$args): self
+    {
+        return new static(...$args);
+    }
+
     public function image(string $image): self
     {
         $this->image = $image;
