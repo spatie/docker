@@ -18,9 +18,9 @@ class DockerTest extends TestCase
         parent::setUp();
 
         $this->container = DockerContainer::new()
-            ->image('spatie/dock')
+            ->image('spatie/docker')
             ->named('spatie_docker_test')
-            ->port(4848)
+            ->mapPort(4848, 22)
             ->stopAfterCompletion();
 
         $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
@@ -39,9 +39,9 @@ class DockerTest extends TestCase
     public function a_public_key_can_be_added_to_a_running_container()
     {
         $container = DockerContainer::new()
-            ->image('spatie/dock')
+            ->image('spatie/docker')
             ->named('spatie_docker_test')
-            ->port(4848)
+            ->mapPort(4848, 22)
             ->start()
             ->addPublicKey(__DIR__ . '/keys/spatie_docker_package_id_rsa.pub');
 

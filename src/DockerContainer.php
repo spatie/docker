@@ -14,7 +14,10 @@ class DockerContainer
 
     public string $image = '';
 
-    public int $port = 4848;
+    /**
+     * @var \Spatie\Docker\PortMapping[]
+     */
+    public array $portMappings = [];
 
     public bool $stopAfterCompletion = false;
 
@@ -37,9 +40,9 @@ class DockerContainer
         return $this;
     }
 
-    public function port(int $port): DockerContainer
+    public function mapPort(int $portOnHost, $portOnDocker): DockerContainer
     {
-        $this->port = $port;
+        $this->portMappings[] = new PortMapping($portOnHost, $portOnDocker);
 
         return $this;
     }
@@ -53,7 +56,9 @@ class DockerContainer
 
     public function start()
     {
-        $command = "docker run -p {$this->port}:22 --name {$this->name} -d --rm {$this->image}";
+        $portMappings = implode(' ', $this->portMappings);
+
+        $command = "docker run {$portMappings} --name {$this->name} -d --rm {$this->image}";
 
         $process = Process::fromShellCommandline($command);
 
