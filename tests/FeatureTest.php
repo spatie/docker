@@ -56,7 +56,7 @@ class FeatureTest extends TestCase
     public function files_can_be_added_to_the_container()
     {
         $container = $this->container->start()
-            ->addPublicKey('/Users/freek/.ssh/id_rsa.pub')
+            ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub')
             ->addFiles(__DIR__.'/stubs', '/test');
 
         $process = $this->ssh->execute([
