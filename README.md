@@ -8,7 +8,7 @@
 This package provides a nice way to start docker containers and execute commands on them.
 
 ````php
-$containerInstance = (new DockerContainer($imageName))->start();
+$containerInstance = DockerContainer::create($imageName)->start();
 
 $process = $containerInstance->run('whoami');
 
@@ -28,7 +28,7 @@ composer require spatie/docker
 You can get an instance of a docker container using
 
 ```php
-$containerInstance = (new DockerContainer($imageName))->start();
+$containerInstance = DockerContainer::create($imageName)->start();
 ```
 
 By default the container will be deamonized and it will be cleaned up after it exists.
@@ -40,7 +40,7 @@ By default the container will be deamonized and it will be cleaned up after it e
 If you don't want your docker being deamonized, call `doNotDeamonize`.
 
 ```php
-$containerInstance = (new DockerContainer($imageName))
+$containerInstance = DockerContainer::create($imageName)
     ->doNotDeamonize()
     ->start();
 ```
@@ -50,7 +50,7 @@ $containerInstance = (new DockerContainer($imageName))
 If you don't want your docker being cleaned up after it exists, call `doNotCleanUpAfterExit`.
 
 ```php
-$containerInstance = (new DockerContainer($imageName))
+$containerInstance = DockerContainer::create($imageName)
     ->doNotCleanUpAfterExit()
     ->start();
 ```
@@ -66,7 +66,7 @@ new DockerContainer($imageName, $nameOfContainer));
 Alternatively, use the `name` method.
 
 ```php
-$containerInstance = (new DockerContainer($imageName))
+$containerInstance = DockerContainer::create($imageName)
     ->name($yourName)
     ->start();
 ```
@@ -76,7 +76,7 @@ $containerInstance = (new DockerContainer($imageName))
 You can map ports between the host machine and the docker container using the `mapPort` method. To map multiple ports, just call `mapPort` multiple times.
 
 ```php
-$containerInstance = (new DockerContainer($imageName))
+$containerInstance = DockerContainer::create($imageName)
     ->mapPort($portOnHost, $portOnContainer)
     ->mapPort($anotherPortOnHost, $anotherPortOnContainer)
     ->start();
@@ -87,7 +87,7 @@ $containerInstance = (new DockerContainer($imageName))
 When using this package in a testing environment, it can be handy that the docker container is stopped after `__destruct` is called on it (mostly this will happen when the PHP script ends). You can enable this behaviour with the `stopOnDestruct` method.
 
 ```php
-$containerInstance = (new DockerContainer($imageName))
+$containerInstance = DockerContainer::create($imageName)
     ->stopOnDestruct()
     ->start();
 ```
@@ -98,7 +98,7 @@ You can get the string that will be executed when a container is started with th
 
 ```php
 // returns "docker run -d --rm spatie/docker"
-(new DockerContainer($imageName))->getStartCommand();
+DockerContainer::create($imageName)->getStartCommand();
 ```
 
 ### Available methods on the docker container instance
@@ -166,7 +166,7 @@ Spatie\Docker\DockerContainerInstance::macro('whoAmI', function () {
     return $process->getOutput();
 });
 
-$containerInstance = (new DockerContainer($imageName))->start();
+$containerInstance = DockerContainer::create($imageName)->start();
 
 $containerInstace->whoAmI(); // returns of name of user in the docker container
 ````
