@@ -125,7 +125,7 @@ $process = $instance->execute([$command, $anotherCommand]);
 
 The execute method returns an instance of [`Symfony/Process`](https://symfony.com/doc/current/components/process.html).
 
-You can check if your command ran succesfully using the `isSuccessful` $method
+You can check if your command ran successfully using the `isSuccessful` $method
 
 ```php
 $process->isSuccessful(); // returns a boolean
