@@ -10,7 +10,7 @@ This package provides a nice way to start docker containers and execute commands
 ````php
 $containerInstance = DockerContainer::create($imageName)->start();
 
-$process = $containerInstance->run('whoami');
+$process = $containerInstance->execute('whoami');
 
 $process->getOutput(); // returns the name of the user inside the docker container
 ````
