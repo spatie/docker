@@ -131,7 +131,7 @@ You can check if your command ran successfully using the `isSuccessful` $method
 $process->isSuccessful(); // returns a boolean
 ```
 
-You can get to the output using `getOutput()`. If the command did not run successfully, you can use `getErrorOutput()`. For more information on how to work with a `Process` head over to [the Symfony docs]()https://symfony.com/doc/current/components/process.html.
+You can get to the output using `getOutput()`. If the command did not run successfully, you can use `getErrorOutput()`. For more information on how to work with a `Process` head over to [the Symfony docs](https://symfony.com/doc/current/components/process.html).
 
 
 #### Installing a public key
