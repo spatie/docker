@@ -21,6 +21,11 @@ class DockerContainer
      */
     public array $portMappings = [];
 
+    /**
+     * @var \Spatie\Docker\EnvironmentMapping[]
+     */
+    public array $environmentMappings = [];
+
     public bool $cleanUpAfterExit = true;
 
     public bool $stopOnDestruct = false;
@@ -86,6 +91,13 @@ class DockerContainer
         return $this;
     }
 
+    public function setVariable(string $envName, string $envValue) : self
+    {
+        $this->environmentMappings[] = new EnvironmentMapping($envName, $envValue);
+
+        return $this;
+    }
+
     public function stopOnDestruct(bool $stopOnDestruct = true): self
     {
         $this->stopOnDestruct = $stopOnDestruct;
@@ -125,6 +137,10 @@ class DockerContainer
 
         if (count($this->portMappings)) {
             $extraOptions[] = implode(' ', $this->portMappings);
+        }
+
+        if (count($this->environmentMappings)) {
+            $extraOptions[] = implode(' ', $this->environmentMappings);
         }
 
         if ($this->name !== '') {
