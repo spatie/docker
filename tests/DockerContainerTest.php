@@ -75,8 +75,8 @@ class DockerContainerTest extends TestCase
     public function it_can_set_environment_variables()
     {
         $command = $this->container
-            ->setVariable('NAME', 'VALUE')
-            ->setVariable('NAME2', 'VALUE2')
+            ->setEnvironmentVariable('NAME', 'VALUE')
+            ->setEnvironmentVariable('NAME2', 'VALUE2')
             ->getStartCommand();
 
         $this->assertEquals('docker run -e NAME=VALUE -e NAME2=VALUE2 -d --rm spatie/docker', $command);
