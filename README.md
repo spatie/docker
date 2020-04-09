@@ -90,7 +90,7 @@ $containerInstance = DockerContainer::create($imageName)
 
 #### Environment variables
 
-You can set environment variables using the `setVariable` method. To add multiple arguements, just call `setVariable` multiple times.
+You can set environment variables using the `setVariable` method. To add multiple arguments, just call `setVariable` multiple times.
 
 ```php
 $containerInstance = DockerContainer::create($imageName)
