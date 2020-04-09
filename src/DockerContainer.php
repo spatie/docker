@@ -91,7 +91,7 @@ class DockerContainer
         return $this;
     }
 
-    public function setVariable(string $envName, string $envValue) : self
+    public function setVariable(string $envName, string $envValue): self
     {
         $this->environmentMappings[] = new EnvironmentMapping($envName, $envValue);
 
