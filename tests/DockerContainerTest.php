@@ -70,4 +70,15 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -p 4848:22 -p 9000:21 -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_set_environment_variables()
+    {
+        $command = $this->container
+            ->setVariable('NAME', 'VALUE')
+            ->setVariable('NAME2', 'VALUE2')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -e NAME=VALUE -e NAME2=VALUE2 -d --rm spatie/docker', $command);
+    }
 }
