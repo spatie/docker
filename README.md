@@ -88,6 +88,17 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Environment variables
+
+You can set environment variables using the `setEnvironmentVariable` method. To add multiple arguments, just call `setEnvironmentVariable` multiple times.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setEnvironmentVariable($variableKey, $variableValue)
+    ->setEnvironmentVariable($anotherVariableKey, $anotherVariableValue)
+    ->start();
+```
+
 #### Automatically stopping the container after PHP exists
 
 When using this package in a testing environment, it can be handy that the docker container is stopped after `__destruct` is called on it (mostly this will happen when the PHP script ends). You can enable this behaviour with the `stopOnDestruct` method.
