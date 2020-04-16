@@ -81,4 +81,15 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -e NAME=VALUE -e NAME2=VALUE2 -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_set_volumes()
+    {
+        $command = $this->container
+            ->setVolume('/on/my/host', '/on/my/container')
+            ->setVolume('/data', '/data')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker', $command);
+    }
 }
