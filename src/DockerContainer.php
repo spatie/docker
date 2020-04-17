@@ -26,6 +26,11 @@ class DockerContainer
      */
     public array $environmentMappings = [];
 
+    /**
+     * @var array \Spatie\Docker\VolumeMapping[]
+     */
+    public array $volumeMappings = [];
+
     public bool $cleanUpAfterExit = true;
 
     public bool $stopOnDestruct = false;
@@ -98,6 +103,13 @@ class DockerContainer
         return $this;
     }
 
+    public function setVolume(string $pathOnHost, string $pathOnDocker): self
+    {
+        $this->volumeMappings[] = new VolumeMapping($pathOnHost, $pathOnDocker);
+
+        return $this;
+    }
+
     public function stopOnDestruct(bool $stopOnDestruct = true): self
     {
         $this->stopOnDestruct = $stopOnDestruct;
@@ -141,6 +153,10 @@ class DockerContainer
 
         if (count($this->environmentMappings)) {
             $extraOptions[] = implode(' ', $this->environmentMappings);
+        }
+
+        if (count($this->volumeMappings)) {
+            $extraOptions[] = implode(' ', $this->volumeMappings);
         }
 
         if ($this->name !== '') {
