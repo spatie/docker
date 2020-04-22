@@ -31,6 +31,11 @@ class DockerContainer
      */
     public array $volumeMappings = [];
 
+    /**
+     * @var \Spatie\Docker\LabelMapping[]
+     */
+    public array $labelMappings = [];
+
     public bool $cleanUpAfterExit = true;
 
     public bool $stopOnDestruct = false;
@@ -110,6 +115,13 @@ class DockerContainer
         return $this;
     }
 
+    public function setLabel(string $labelName, string $labelValue): self
+    {
+        $this->labelMappings[] = new LabelMapping($labelName, $labelValue);
+
+        return $this;
+    }
+
     public function stopOnDestruct(bool $stopOnDestruct = true): self
     {
         $this->stopOnDestruct = $stopOnDestruct;
@@ -157,6 +169,10 @@ class DockerContainer
 
         if (count($this->volumeMappings)) {
             $extraOptions[] = implode(' ', $this->volumeMappings);
+        }
+
+        if (count($this->labelMappings)) {
+            $extraOptions[] = implode(' ', $this->labelMappings);
         }
 
         if ($this->name !== '') {

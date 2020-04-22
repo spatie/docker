@@ -92,4 +92,16 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_set_labels()
+    {
+        $command = $this->container
+            ->setLabel("traefik.enable","true")
+            ->setLabel("foo","bar")
+            ->setLabel("name","spatie")
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
+    }
 }

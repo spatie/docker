@@ -110,6 +110,17 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Setting Labels
+
+You can set labels using the `setLabel` method. To add multiple arguments, just call `setLabel` multiple times.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setLabel($labelName, $labelValue)
+    ->setLabel($anotherLabelName, $anotherLabelValue)
+    ->start();
+```
+
 #### Automatically stopping the container after PHP exists
 
 When using this package in a testing environment, it can be handy that the docker container is stopped after `__destruct` is called on it (mostly this will happen when the PHP script ends). You can enable this behaviour with the `stopOnDestruct` method.
