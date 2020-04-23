@@ -16,24 +16,16 @@ class DockerContainer
 
     public bool $daemonize = true;
 
-    /**
-     * @var \Spatie\Docker\PortMapping[]
-     */
+    /** @var \Spatie\Docker\PortMapping[] */
     public array $portMappings = [];
 
-    /**
-     * @var \Spatie\Docker\EnvironmentMapping[]
-     */
+    /** @var \Spatie\Docker\EnvironmentMapping[] */
     public array $environmentMappings = [];
 
-    /**
-     * @var array \Spatie\Docker\VolumeMapping[]
-     */
+    /** @var array \Spatie\Docker\VolumeMapping[] */
     public array $volumeMappings = [];
 
-    /**
-     * @var \Spatie\Docker\LabelMapping[]
-     */
+    /** @var \Spatie\Docker\LabelMapping[] */
     public array $labelMappings = [];
 
     public bool $cleanUpAfterExit = true;
