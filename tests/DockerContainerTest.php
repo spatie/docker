@@ -97,9 +97,9 @@ class DockerContainerTest extends TestCase
     public function it_can_set_labels()
     {
         $command = $this->container
-            ->setLabel("traefik.enable","true")
-            ->setLabel("foo","bar")
-            ->setLabel("name","spatie")
+            ->setLabel('traefik.enable', 'true')
+            ->setLabel('foo', 'bar')
+            ->setLabel('name', 'spatie')
             ->getStartCommand();
 
         $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
