@@ -2,6 +2,10 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.3.0 - 2020-04-23
+
+- add `setLabel` (#15)
+
 ## 1.2.0 - 2020-04-16
 
 - ability to set volume on a container (#14)
