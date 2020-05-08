@@ -116,15 +116,15 @@ class FeatureTest extends TestCase
         $process = $container->makeProcess('whoami');
         $process->setTimeout(300);
         $process->setIdleTimeout(90);
-        
+
         $this->assertFalse($process->isStarted());
         $this->assertFalse($process->isRunning());
         $this->assertEquals(300, $process->getTimeout());
         $this->assertEquals(90, $process->getIdleTimeout());
-        
+
         $process->run();
         $output = trim($process->getOutput());
-        
+
         $this->assertEquals('root', $output);
     }
 }
