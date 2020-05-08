@@ -154,6 +154,14 @@ You can execute multiple command in one go by passing an array.
 
 ```php
 $process = $instance->execute([$command, $anotherCommand]);
+
+If you need to make adjustments to the process before running,
+you can use the `makeProcess` and run the process manually.
+
+```php
+$process = $instance->makeProcess($command);
+$process->setTimeout(300);
+$process->run();
 ```
 
 The execute method returns an instance of [`Symfony/Process`](https://symfony.com/doc/current/components/process.html).

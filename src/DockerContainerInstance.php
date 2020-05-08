@@ -86,6 +86,24 @@ class DockerContainerInstance
         return $process;
     }
 
+    /**
+     * @param string|array $command
+     *
+     * @return \Symfony\Component\Process\Process
+     */
+    public function makeProcess($command): Process
+    {
+        if (is_array($command)) {
+            $command = implode(';', $command);
+        }
+
+        $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
+
+        $process = Process::fromShellCommandline($fullCommand);
+
+        return $process;
+    }
+
     public function addPublicKey(string $pathToPublicKey, string $pathToAuthorizedKeys = '/root/.ssh/authorized_keys'): self
     {
         $publicKeyContents = trim(file_get_contents($pathToPublicKey));

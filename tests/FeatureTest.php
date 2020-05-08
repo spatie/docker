@@ -103,4 +103,28 @@ class FeatureTest extends TestCase
 
         $this->assertEquals('root', $userName);
     }
+
+    /** @test */
+    public function process_can_be_created_and_manually_run()
+    {
+        $container = (new DockerContainer('spatie/docker'))
+            ->name('spatie_docker_test')
+            ->mapPort(4848, 22)
+            ->stopOnDestruct()
+            ->start();
+
+        $process = $container->makeProcess('whoami');
+        $process->setTimeout(300);
+        $process->setIdleTimeout(90);
+        
+        $this->assertFalse($process->isStarted());
+        $this->assertFalse($process->isRunning());
+        $this->assertEquals(300, $process->getTimeout());
+        $this->assertEquals(90, $process->getIdleTimeout());
+        
+        $process->run();
+        $output = trim($process->getOutput());
+        
+        $this->assertEquals('root', $output);
+    }
 }
