@@ -5,4 +5,3 @@ vendor
 coverage
 .phpunit.result.cache
 .idea
-nbproject
