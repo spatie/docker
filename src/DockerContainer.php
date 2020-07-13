@@ -132,6 +132,10 @@ class DockerContainer
 
         $process = Process::fromShellCommandline($command);
 
+        // increasing the timeout limit
+        $process->setTimeout(180);
+        $process->setIdleTimeout(180);
+        
         $process->run();
 
         if (! $process->isSuccessful()) {
