@@ -63,7 +63,7 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
-#### Prevent privileged
+#### Priviliged
 
 If you want your docker being privileged, call `privileged`.
 
