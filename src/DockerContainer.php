@@ -16,6 +16,8 @@ class DockerContainer
 
     public bool $daemonize = true;
 
+    public bool $privileged = false;
+
     /** @var \Spatie\Docker\PortMapping[] */
     public array $portMappings = [];
 
@@ -61,6 +63,13 @@ class DockerContainer
     public function daemonize(bool $daemonize = true): self
     {
         $this->daemonize = $daemonize;
+
+        return $this;
+    }
+
+    public function privileged(bool $privileged = true): self
+    {
+        $this->privileged = $privileged;
 
         return $this;
     }
@@ -173,6 +182,10 @@ class DockerContainer
 
         if ($this->daemonize) {
             $extraOptions[] = '-d';
+        }
+
+        if ($this->privileged) {
+            $extraOptions[] = '--privileged';
         }
 
         if ($this->cleanUpAfterExit) {
