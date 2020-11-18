@@ -2,6 +2,10 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.4.0 - 2020-11-19
+
+- add `privileged` (#19)
+
 ## 1.3.0 - 2020-04-23
 
 - add `setLabel` (#15)
