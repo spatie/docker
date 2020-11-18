@@ -41,6 +41,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_be_privileged()
+    {
+        $command = $this->container
+            ->privileged()
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -d --privileged --rm spatie/docker', $command);
+    }
+
+    /** @test */
     public function it_can_not_be_cleaned_up()
     {
         $command = $this->container

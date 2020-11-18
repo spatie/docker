@@ -63,6 +63,16 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Prevent privileged
+
+If you want your docker being privileged, call `privileged`.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->privileged()
+    ->start();
+```
+
 #### Naming the container
 
 You can name the container by passing the name as the second argument to the constructor.
