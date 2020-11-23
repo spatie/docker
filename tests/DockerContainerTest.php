@@ -116,12 +116,27 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_set_options()
+    public function it_can_set_option()
     {
         $command = $this->container
             ->setOption('device', '/dev/net/tun')
             ->setOption('cap-add', 'NET_ADMIN')
             ->setOption('cpu-quota', 1)
+            ->getStartCommand();
+
+        $this->assertEquals('docker run --device=/dev/net/tun --cap-add=NET_ADMIN --cpu-quota=1 -d --rm spatie/docker',
+                            $command);
+    }
+
+    /** @test */
+    public function it_can_set_options()
+    {
+        $command = $this->container
+            ->setOptions([
+                'device' => '/dev/net/tun',
+                'cap-add' => 'NET_ADMIN',
+                'cpu-quota' => 1,
+                             ])
             ->getStartCommand();
 
         $this->assertEquals('docker run --device=/dev/net/tun --cap-add=NET_ADMIN --cpu-quota=1 -d --rm spatie/docker',

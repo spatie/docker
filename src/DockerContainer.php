@@ -125,6 +125,20 @@ class DockerContainer
         return $this;
     }
 
+    /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions(array $options): self
+    {
+        foreach ($options as $optionName => $optionValue) {
+            $this->options[] = new Option($optionName, $optionValue);
+        }
+
+        return $this;
+    }
+
     public function setVolume(string $pathOnHost, string $pathOnDocker): self
     {
         $this->volumeMappings[] = new VolumeMapping($pathOnHost, $pathOnDocker);

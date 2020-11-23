@@ -5,7 +5,7 @@ namespace Spatie\Docker;
 class Option
 {
 
-    private string $optionName;
+    protected string $optionName;
 
     /**
      * @var int|string
