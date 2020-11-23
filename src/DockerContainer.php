@@ -112,7 +112,13 @@ class DockerContainer
         return $this;
     }
 
-    public function setOption(string $optionName, string $valueName): self
+    /**
+     * @param string $optionName
+     * @param int|string $valueName
+     *
+     * @return $this
+     */
+    public function setOption(string $optionName, $valueName): self
     {
         $this->options[] = new OptionMapping($optionName, $valueName);
 

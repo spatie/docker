@@ -121,9 +121,10 @@ class DockerContainerTest extends TestCase
         $command = $this->container
             ->setOption('device', '/dev/net/tun')
             ->setOption('cap-add', 'NET_ADMIN')
+            ->setOption('cpu-quota', 1)
             ->getStartCommand();
 
-        $this->assertEquals('docker run --device=/dev/net/tun --cap-add=NET_ADMIN -d --rm spatie/docker',
+        $this->assertEquals('docker run --device=/dev/net/tun --cap-add=NET_ADMIN --cpu-quota=1 -d --rm spatie/docker',
                             $command);
     }
 }
