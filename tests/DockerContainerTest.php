@@ -114,4 +114,16 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_set_options()
+    {
+        $command = $this->container
+            ->setOption('device', '/dev/net/tun')
+            ->setOption('cap-add', 'NET_ADMIN')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run --device=/dev/net/tun --cap-add=NET_ADMIN -d --rm spatie/docker',
+                            $command);
+    }
 }

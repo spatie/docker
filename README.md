@@ -132,6 +132,17 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Setting Options
+
+You can set options using the `setOption` method. To add multiple arguments, just call `setOption` multiple times.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setOption($optionName, $optionValue)
+    ->setOption($anotherOptionName, $anotherOptionValue)
+    ->start();
+```
+
 #### Automatically stopping the container after PHP exists
 
 When using this package in a testing environment, it can be handy that the docker container is stopped after `__destruct` is called on it (mostly this will happen when the PHP script ends). You can enable this behaviour with the `stopOnDestruct` method.
