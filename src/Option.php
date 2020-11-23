@@ -2,7 +2,7 @@
 
 namespace Spatie\Docker;
 
-class OptionMapping
+class Option
 {
 
     private string $optionName;
@@ -12,12 +12,6 @@ class OptionMapping
      */
     private $optionValue;
 
-    /**
-     * ArgumentMapping constructor.
-     *
-     * @param string $optionName
-     * @param int|string $optionValue
-     */
     public function __construct(string $optionName, $optionValue)
     {
         $this->optionName = $optionName;

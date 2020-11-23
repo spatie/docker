@@ -30,7 +30,7 @@ class DockerContainer
     /** @var \Spatie\Docker\LabelMapping[] */
     public array $labelMappings = [];
 
-    /** @var \Spatie\Docker\OptionMapping[] */
+    /** @var \Spatie\Docker\Option[] */
     public array $options = [];
 
     public bool $cleanUpAfterExit = true;
@@ -120,7 +120,7 @@ class DockerContainer
      */
     public function setOption(string $optionName, $valueName): self
     {
-        $this->options[] = new OptionMapping($optionName, $valueName);
+        $this->options[] = new Option($optionName, $valueName);
 
         return $this;
     }
