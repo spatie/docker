@@ -2,6 +2,10 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.5.0 - 2020-12-30
+
+- add PHP 8.0 support (#21)
+
 ## 1.4.0 - 2020-11-19
 
 - add `privileged` (#19)
