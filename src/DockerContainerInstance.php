@@ -46,6 +46,37 @@ class DockerContainerInstance
         return $process;
     }
 
+    public function getPorts(): array 
+    {
+        $fullCommand = "docker port {$this->getShortDockerIdentifier()}";
+
+        $process = Process::fromShellCommandline($fullCommand);
+
+        $process->run();
+        
+        if (! $process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $lines = explode( PHP_EOL, trim( $process->getOutput() ) );
+
+        $ports = [];
+
+        // for example: 8080/tcp -> 0.0.0.0:32903
+
+        foreach ($lines as $line)  {
+            $line = trim( $line );
+
+            $container = intval( $line );
+
+            $local = intval( substr( $line, 1 + strrpos( $line, ":" ) ) );
+
+            array_push( $ports, new PortMapping( $local, $container ) );
+        }
+
+        return $ports;
+    }
+
     public function getName(): string
     {
         return $this->name;

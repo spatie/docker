@@ -82,6 +82,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_map_random_ports()
+    {
+        $command = $this->container
+            ->mapRandomPorts()
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -P -d --rm spatie/docker', $command);
+    }
+
+    /** @test */
     public function it_can_set_environment_variables()
     {
         $command = $this->container
@@ -114,4 +124,6 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
     }
+
+
 }
