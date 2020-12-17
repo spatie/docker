@@ -124,6 +124,4 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
     }
-
-
 }
