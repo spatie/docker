@@ -62,8 +62,6 @@ class DockerContainerInstance
 
         $ports = [];
 
-        // for example: 8080/tcp -> 0.0.0.0:32903
-
         foreach ($lines as $line)  {
             $line = trim( $line );
 
