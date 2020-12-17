@@ -18,10 +18,10 @@ class PortMapping
     public function __toString()
     {
         if ( -1 == $this->portOnHost || -1 == $this->portOnDocker ) {
-            return "-P ";
-        } else {
-            return "-p {$this->portOnHost}:{$this->portOnDocker}";
+            return "-P";
         }
+
+        return "-p {$this->portOnHost}:{$this->portOnDocker}";
     }
 
     public function getPortOnHost(): int
