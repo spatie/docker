@@ -99,6 +99,20 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+You can also have docker assign the ports randomly using the `mapRandomPorts` method.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->mapRandomPorts()
+    ->start();
+```
+
+You can get the list of mapped ports with the `getPorts` method on the containerInstance.
+
+```php
+$ports = $containerInstance->getPorts()
+```
+
 #### Environment variables
 
 You can set environment variables using the `setEnvironmentVariable` method. To add multiple arguments, just call `setEnvironmentVariable` multiple times.
