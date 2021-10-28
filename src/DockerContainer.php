@@ -34,6 +34,8 @@ class DockerContainer
 
     public bool $stopOnDestruct = false;
 
+    public string $remoteHost = '';
+
     public function __construct(string $image, string $name = '')
     {
         $this->image = $image;
@@ -130,9 +132,28 @@ class DockerContainer
         return $this;
     }
 
+    public function remoteHost(string $remoteHost): self
+    {
+        $this->remoteHost = $remoteHost;
+
+        return $this;
+    }
+
     public function getStartCommand(): string
     {
-        return "docker run {$this->getExtraOptions()} {$this->image}";
+        return "{$this->getBaseStartCommand()} run {$this->getExtraOptions()} {$this->image}";
+    }
+
+    public function getBaseStartCommand(): string
+    {
+        $baseCommand = 'docker';
+        $dockerOptions = $this->getExtraDockerOptions();
+
+        if ($dockerOptions !== '') {
+            $baseCommand .= ' ' . $dockerOptions;
+        }
+
+        return $baseCommand;
     }
 
     public function start(): DockerContainerInstance
@@ -193,5 +214,16 @@ class DockerContainer
         }
 
         return implode(' ', $extraOptions);
+    }
+
+    protected function getExtraDockerOptions(): string
+    {
+        $extraDockerOptions = [];
+
+        if ($this->remoteHost !== '') {
+            $extraDockerOptions[] = "-H {$this->remoteHost}";
+        }
+
+        return implode(' ', $extraDockerOptions);
     }
 }

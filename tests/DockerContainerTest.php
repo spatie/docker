@@ -114,4 +114,14 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_use_remote_docker_host()
+    {
+        $command = $this->container
+            ->remoteHost('ssh://username@host')
+            ->getStartCommand();
+
+        $this->assertEquals('docker -H ssh://username@host run -d --rm spatie/docker', $command);
+    }
 }
