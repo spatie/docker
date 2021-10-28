@@ -124,4 +124,14 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker -H ssh://username@host run -d --rm spatie/docker', $command);
     }
+
+    /** @test */
+    public function it_can_execute_command_at_start()
+    {
+        $command = $this->container
+            ->command('whoami')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -d --rm spatie/docker whoami', $command);
+    }
 }

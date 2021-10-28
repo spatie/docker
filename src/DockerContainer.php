@@ -36,6 +36,8 @@ class DockerContainer
 
     public string $remoteHost = '';
 
+    public string $command = '';
+
     public function __construct(string $image, string $name = '')
     {
         $this->image = $image;
@@ -139,9 +141,16 @@ class DockerContainer
         return $this;
     }
 
+    public function command(string $command): self
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
     public function getStartCommand(): string
     {
-        return "{$this->getBaseStartCommand()} run {$this->getExtraOptions()} {$this->image}";
+        return trim("{$this->getBaseStartCommand()} run {$this->getExtraOptions()} {$this->image} {$this->command}");
     }
 
     public function getBaseStartCommand(): string
