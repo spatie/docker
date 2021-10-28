@@ -144,7 +144,7 @@ $containerInstance = DockerContainer::create($imageName)
 
 #### Specify a remote docker host for execution
 
-You can set the host used for executing the container. The `docker` commandline accepts a daemon socket string. To connect to a remote docker host via ssh, use the syntax `ssh://username@hostname`. Note that the proper SSH keys will already need to be configured for this work.
+You can set the host used for executing the container. The `docker` command line accepts a daemon socket string. To connect to a remote docker host via ssh, use the syntax `ssh://username@hostname`. Note that the proper SSH keys will already need to be configured for this work.
 
 ```php
 $containerInstance = DockerContainer::create($imageName)
