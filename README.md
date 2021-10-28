@@ -148,7 +148,7 @@ You can set the host used for executing the container. The `docker` commandline 
 
 ```php
 $containerInstance = DockerContainer::create($imageName)
-    ->remoteHost('ss://username@hostname')
+    ->remoteHost('ssh://username@hostname')
     ->start();
 ```
 
