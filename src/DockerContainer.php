@@ -150,19 +150,20 @@ class DockerContainer
 
     public function getStartCommand(): string
     {
-        return trim("{$this->getBaseStartCommand()} run {$this->getExtraOptions()} {$this->image} {$this->command}");
-    }
+        $startCommand = [
+            'docker',
+            ...$this->getExtraDockerOptions(),
+            'run',
+            ...$this->getExtraOptions(),
+            $this->image
+        ];
 
-    public function getBaseStartCommand(): string
-    {
-        $baseCommand = 'docker';
-        $dockerOptions = $this->getExtraDockerOptions();
-
-        if ($dockerOptions !== '') {
-            $baseCommand .= ' ' . $dockerOptions;
+        if ($this->command !== '') {
+            $startCommand[] = $this->command;
         }
 
-        return $baseCommand;
+
+        return implode(' ', $startCommand);
     }
 
     public function start(): DockerContainerInstance
@@ -186,7 +187,7 @@ class DockerContainer
         );
     }
 
-    protected function getExtraOptions(): string
+    protected function getExtraOptions(): array
     {
         $extraOptions = [];
 
@@ -222,10 +223,10 @@ class DockerContainer
             $extraOptions[] = '--rm';
         }
 
-        return implode(' ', $extraOptions);
+        return $extraOptions;
     }
 
-    protected function getExtraDockerOptions(): string
+    protected function getExtraDockerOptions(): array
     {
         $extraDockerOptions = [];
 
@@ -233,6 +234,6 @@ class DockerContainer
             $extraDockerOptions[] = "-H {$this->remoteHost}";
         }
 
-        return implode(' ', $extraDockerOptions);
+        return $extraDockerOptions;
     }
 }
