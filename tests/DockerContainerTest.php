@@ -134,4 +134,31 @@ class DockerContainerTest extends TestCase
 
         $this->assertEquals('docker run -d --rm spatie/docker whoami', $command);
     }
+
+    /** @test */
+    public function it_can_generate_stop_command()
+    {
+        $command = $this->container
+            ->getStopCommand('abcdefghijkl');
+
+        $this->assertEquals('docker stop abcdefghijkl', $command);
+    }
+
+    /** @test */
+    public function it_can_generate_exec_command()
+    {
+        $command = $this->container
+            ->getExecCommand('abcdefghijkl', 'whoami');
+
+        $this->assertEquals('echo "whoami" | docker exec --interactive abcdefghijkl bash -', $command);
+    }
+
+    /** @test */
+    public function it_can_generate_copy_command()
+    {
+        $command = $this->container
+            ->getCopyCommand('abcdefghijkl', '/home/spatie','/mnt/spatie');
+
+        $this->assertEquals('docker cp /home/spatie abcdefghijkl:/mnt/spatie', $command);
+    }
 }

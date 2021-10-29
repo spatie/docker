@@ -37,7 +37,7 @@ class DockerContainerInstance
 
     public function stop(): Process
     {
-        $fullCommand = "docker stop {$this->getShortDockerIdentifier()}";
+        $fullCommand = $this->config->getStopCommand($this->getShortDockerIdentifier());
 
         $process = Process::fromShellCommandline($fullCommand);
 
@@ -77,7 +77,7 @@ class DockerContainerInstance
             $command = implode(';', $command);
         }
 
-        $fullCommand = "echo \"{$command}\" | docker exec --interactive {$this->getShortDockerIdentifier()} bash -";
+        $fullCommand = $this->config->getExecCommand($this->getShortDockerIdentifier(), $command);
 
         $process = Process::fromShellCommandline($fullCommand);
 
@@ -100,7 +100,10 @@ class DockerContainerInstance
 
     public function addFiles(string $fileOrDirectoryOnHost, string $pathInContainer): self
     {
-        $process = Process::fromShellCommandline("docker cp {$fileOrDirectoryOnHost} {$this->getShortDockerIdentifier()}:{$pathInContainer}");
+        $fullCommand = $this->config->getCopyCommand($this->getShortDockerIdentifier(), $fileOrDirectoryOnHost, $pathInContainer);
+
+        $process = Process::fromShellCommandline($fullCommand);
+
         $process->run();
 
         if (! $process->isSuccessful()) {

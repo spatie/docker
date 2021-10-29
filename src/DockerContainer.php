@@ -166,6 +166,47 @@ class DockerContainer
         return implode(' ', $startCommand);
     }
 
+    public function getStopCommand(string $dockerIdentifier): string
+    {
+        $stopCommand = [
+            'docker',
+            ...$this->getExtraDockerOptions(),
+            'stop',
+            $dockerIdentifier
+        ];
+
+        return implode(' ', $stopCommand);
+    }
+
+    public function getExecCommand(string $dockerIdentifier, string $command): string
+    {
+        $execCommand = [
+            "echo \"{$command}\"",
+            '|',
+            'docker',
+            ...$this->getExtraDockerOptions(),
+            'exec',
+            '--interactive',
+            $dockerIdentifier,
+            'bash -'
+        ];
+
+        return implode(' ', $execCommand);
+    }
+
+    public function getCopyCommand(string $dockerIdentifier, string $fileOrDirectoryOnHost, string $pathInContainer): string
+    {
+        $copyCommand = [
+            'docker',
+            ...$this->getExtraDockerOptions(),
+            'cp',
+            $fileOrDirectoryOnHost,
+            "{$dockerIdentifier}:{$pathInContainer}"
+        ];
+
+        return implode(' ', $copyCommand);
+    }
+
     public function start(): DockerContainerInstance
     {
         $command = $this->getStartCommand();
