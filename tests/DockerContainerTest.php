@@ -145,6 +145,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_generate_stop_command_with_remote_host()
+    {
+        $command = $this->container
+            ->remoteHost('ssh://username@host')
+            ->getStopCommand('abcdefghijkl');
+
+        $this->assertEquals('docker -H ssh://username@host stop abcdefghijkl', $command);
+    }
+
+    /** @test */
     public function it_can_generate_exec_command()
     {
         $command = $this->container
@@ -154,11 +164,31 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_generate_exec_command_with_remote_host()
+    {
+        $command = $this->container
+            ->remoteHost('ssh://username@host')
+            ->getExecCommand('abcdefghijkl', 'whoami');
+
+        $this->assertEquals('echo "whoami" | docker -H ssh://username@host exec --interactive abcdefghijkl bash -', $command);
+    }
+
+    /** @test */
     public function it_can_generate_copy_command()
     {
         $command = $this->container
             ->getCopyCommand('abcdefghijkl', '/home/spatie','/mnt/spatie');
 
         $this->assertEquals('docker cp /home/spatie abcdefghijkl:/mnt/spatie', $command);
+    }
+
+    /** @test */
+    public function it_can_generate_copy_command_with_remote_host()
+    {
+        $command = $this->container
+            ->remoteHost('ssh://username@host')
+            ->getCopyCommand('abcdefghijkl', '/home/spatie','/mnt/spatie');
+
+        $this->assertEquals('docker -H ssh://username@host cp /home/spatie abcdefghijkl:/mnt/spatie', $command);
     }
 }
