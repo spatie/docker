@@ -148,11 +148,20 @@ class DockerContainer
         return $this;
     }
 
+    public function getBaseCommand(): string
+    {
+        $baseCommand =  [
+            'docker',
+            ...$this->getExtraDockerOptions()
+        ];
+
+        return implode(' ', $baseCommand);
+    }
+
     public function getStartCommand(): string
     {
         $startCommand = [
-            'docker',
-            ...$this->getExtraDockerOptions(),
+            $this->getBaseCommand(),
             'run',
             ...$this->getExtraOptions(),
             $this->image
@@ -162,15 +171,13 @@ class DockerContainer
             $startCommand[] = $this->command;
         }
 
-
         return implode(' ', $startCommand);
     }
 
     public function getStopCommand(string $dockerIdentifier): string
     {
         $stopCommand = [
-            'docker',
-            ...$this->getExtraDockerOptions(),
+            $this->getBaseCommand(),
             'stop',
             $dockerIdentifier
         ];
@@ -183,8 +190,7 @@ class DockerContainer
         $execCommand = [
             "echo \"{$command}\"",
             '|',
-            'docker',
-            ...$this->getExtraDockerOptions(),
+            $this->getBaseCommand(),
             'exec',
             '--interactive',
             $dockerIdentifier,
@@ -197,8 +203,7 @@ class DockerContainer
     public function getCopyCommand(string $dockerIdentifier, string $fileOrDirectoryOnHost, string $pathInContainer): string
     {
         $copyCommand = [
-            'docker',
-            ...$this->getExtraDockerOptions(),
+            $this->getBaseCommand(),
             'cp',
             $fileOrDirectoryOnHost,
             "{$dockerIdentifier}:{$pathInContainer}"
