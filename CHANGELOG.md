@@ -2,6 +2,10 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.7.0 - 2021-10-31
+
+- Emergency fix for PR #26 by @jbraband in https://github.com/spatie/docker/pull/27
+
 ## 1.6.0 - 2021-10-29
 
 - add a couple config methods to DockerContainer class by @jbraband in https://github.com/spatie/docker/pull/26
