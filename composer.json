@@ -22,14 +22,14 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4|^8.0",
         "spatie/macroable": "^1.0",
-        "symfony/process": "^4.0|^5.0"
+        "symfony/process": "^5.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.2 || ^9.0",
-        "spatie/ssh": "dev-master",
-        "symfony/var-dumper": "^4.3"
+        "phpunit/phpunit": "^9.4",
+        "spatie/ssh": "^1.7.0",
+        "symfony/var-dumper": "^5.3"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +44,6 @@
     "scripts": {
         "test": "chmod -R 700 tests/keys && vendor/bin/phpunit",
         "build-docker": "docker build -t spatie/docker ./tests/docker",
-
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
