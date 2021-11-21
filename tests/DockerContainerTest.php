@@ -177,7 +177,7 @@ class DockerContainerTest extends TestCase
     public function it_can_generate_copy_command()
     {
         $command = $this->container
-            ->getCopyCommand('abcdefghijkl', '/home/spatie','/mnt/spatie');
+            ->getCopyCommand('abcdefghijkl', '/home/spatie', '/mnt/spatie');
 
         $this->assertEquals('docker cp /home/spatie abcdefghijkl:/mnt/spatie', $command);
     }
@@ -187,7 +187,7 @@ class DockerContainerTest extends TestCase
     {
         $command = $this->container
             ->remoteHost('ssh://username@host')
-            ->getCopyCommand('abcdefghijkl', '/home/spatie','/mnt/spatie');
+            ->getCopyCommand('abcdefghijkl', '/home/spatie', '/mnt/spatie');
 
         $this->assertEquals('docker -H ssh://username@host cp /home/spatie abcdefghijkl:/mnt/spatie', $command);
     }
