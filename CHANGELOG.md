@@ -2,6 +2,20 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.7.1 - 2022-02-09
+
+## What's Changed
+
+- Add PHP 8.1 Support by @patinthehat in https://github.com/spatie/docker/pull/28
+- Bump supported symfony/process version to ^6.0 by @saschahemleb in https://github.com/spatie/docker/pull/29
+
+## New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/docker/pull/28
+- @saschahemleb made their first contribution in https://github.com/spatie/docker/pull/29
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.7.0...1.7.1
+
 ## 1.7.0 - 2021-10-31
 
 - Emergency fix for PR #26 by @jbraband in https://github.com/spatie/docker/pull/27
