@@ -2,6 +2,10 @@
 
 All notable changes to `docker` will be documented in this file
 
+## Unreleased
+
+ - add method to set entrypoint on a container
+
 ## 1.7.1 - 2022-02-09
 
 ## What's Changed

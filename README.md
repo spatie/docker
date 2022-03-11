@@ -91,6 +91,16 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Setting the entrypoint
+
+If you want to set or override the entrypoint for your image, call `entrypoint`
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->name('bash')
+    ->start();
+```
+
 #### Mapping ports
 
 You can map ports between the host machine and the docker container using the `mapPort` method. To map multiple ports, just call `mapPort` multiple times.

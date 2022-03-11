@@ -70,6 +70,16 @@ class DockerContainerTest extends TestCase
         $this->assertEquals('docker run --name my-name -d --rm spatie/docker', $command);
     }
 
+    /** @test **/
+    public function it_can_set_entrypoint()
+    {
+        $command = $this->container
+            ->entrypoint('my-entrypoint')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run --entrypoint my-entrypoint -d --rm spatie/docker', $command);
+    }
+
     /** @test */
     public function it_can_map_ports()
     {

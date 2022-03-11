@@ -13,6 +13,8 @@ class DockerContainer
     public string $image = '';
 
     public string $name = '';
+    
+    public string $entrypoint = '';
 
     public bool $daemonize = true;
 
@@ -60,6 +62,13 @@ class DockerContainer
     public function name(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function entrypoint(string $entrypoint): self
+    {
+        $this->entrypoint = $entrypoint;
 
         return $this;
     }
@@ -255,6 +264,10 @@ class DockerContainer
 
         if ($this->name !== '') {
             $extraOptions[] = "--name {$this->name}";
+        }
+
+        if ($this->entrypoint !== '') {
+            $extraOptions[] = "--entrypoint {$this->entrypoint}";
         }
 
         if ($this->daemonize) {
