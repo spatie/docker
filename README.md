@@ -80,7 +80,7 @@ $containerInstance = DockerContainer::create($imageName)
 You can name the container by passing the name as the second argument to the constructor.
 
 ```php
-new DockerContainer($imageName, $nameOfContainer));
+new DockerContainer($imageName, $nameOfContainer);
 ```
 
 Alternatively, use the `name` method.
@@ -240,7 +240,7 @@ Spatie\Docker\DockerContainerInstance::macro('whoAmI', function () {
 
 $containerInstance = DockerContainer::create($imageName)->start();
 
-$containerInstace->whoAmI(); // returns of name of user in the docker container
+$containerInstance->whoAmI(); // returns of name of user in the docker container
 ````
 
 ### Testing
