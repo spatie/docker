@@ -18,16 +18,16 @@ class DockerContainer
 
     public bool $privileged = false;
 
-    /** @var \Spatie\Docker\PortMapping[] */
+    /** @var PortMapping[] */
     public array $portMappings = [];
 
-    /** @var \Spatie\Docker\EnvironmentMapping[] */
+    /** @var EnvironmentMapping[] */
     public array $environmentMappings = [];
 
-    /** @var array \Spatie\Docker\VolumeMapping[] */
+    /** @var VolumeMapping[] */
     public array $volumeMappings = [];
 
-    /** @var \Spatie\Docker\LabelMapping[] */
+    /** @var LabelMapping[] */
     public array $labelMappings = [];
 
     public bool $cleanUpAfterExit = true;
