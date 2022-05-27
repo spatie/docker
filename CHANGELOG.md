@@ -2,6 +2,23 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.7.2 - 2022-05-27
+
+## What's Changed
+
+- Update README.md by @spekulatius in https://github.com/spatie/docker/pull/32
+- Add tests for mapping classes by @maartenpaauw in https://github.com/spatie/docker/pull/34
+- Fix array mapping docblocks by @maartenpaauw in https://github.com/spatie/docker/pull/33
+- Add optional args to DockerContainer class by @wajdijurry in https://github.com/spatie/docker/pull/37
+
+## New Contributors
+
+- @spekulatius made their first contribution in https://github.com/spatie/docker/pull/32
+- @maartenpaauw made their first contribution in https://github.com/spatie/docker/pull/34
+- @wajdijurry made their first contribution in https://github.com/spatie/docker/pull/37
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.7.1...1.7.2
+
 ## 1.7.1 - 2022-02-09
 
 ## What's Changed
