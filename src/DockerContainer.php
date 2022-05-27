@@ -38,6 +38,8 @@ class DockerContainer
 
     public string $command = '';
 
+    public array $optionalArgs = [];
+
     public function __construct(string $image, string $name = '')
     {
         $this->image = $image;
@@ -123,6 +125,13 @@ class DockerContainer
     public function setLabel(string $labelName, string $labelValue): self
     {
         $this->labelMappings[] = new LabelMapping($labelName, $labelValue);
+
+        return $this;
+    }
+
+    public function setOptionalArgs(...$args): self
+    {
+        $this->optionalArgs = $args;
 
         return $this;
     }
@@ -236,6 +245,10 @@ class DockerContainer
     protected function getExtraOptions(): array
     {
         $extraOptions = [];
+
+        if ($this->optionalArgs) {
+            $extraOptions[] = implode(' ', $this->optionalArgs);
+        }
 
         if (count($this->portMappings)) {
             $extraOptions[] = implode(' ', $this->portMappings);
