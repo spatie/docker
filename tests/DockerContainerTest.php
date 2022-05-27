@@ -116,6 +116,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_set_optional_args()
+    {
+        $command = $this->container
+            ->setOptionalArgs('-it', '-a', '-i', '-t')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -it -a -i -t -d --rm spatie/docker', $command);
+    }
+
+    /** @test */
     public function it_can_use_remote_docker_host()
     {
         $command = $this->container
