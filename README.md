@@ -135,6 +135,18 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Add optional arguments
+
+If you want to add optional arguments to the `docker run` command, use `setOptionalArgs` method:
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setOptionalArgs('-it', '-a')
+    ->start();
+```
+These arguments will be places after `docker run` immediately.
+
+
 #### Automatically stopping the container after PHP exists
 
 When using this package in a testing environment, it can be handy that the docker container is stopped after `__destruct` is called on it (mostly this will happen when the PHP script ends). You can enable this behaviour with the `stopOnDestruct` method.
