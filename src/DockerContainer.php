@@ -221,6 +221,17 @@ class DockerContainer
         return implode(' ', $copyCommand);
     }
 
+    public function getInspectCommand(string $dockerIdentifier): string
+    {
+        $execCommand = [
+            $this->getBaseCommand(),
+            'inspect',
+            $dockerIdentifier
+        ];
+
+        return implode(' ', $execCommand);
+    }
+
     public function start(): DockerContainerInstance
     {
         $command = $this->getStartCommand();
@@ -233,7 +244,7 @@ class DockerContainer
             throw CouldNotStartDockerContainer::processFailed($this, $process);
         }
 
-        $dockerIdentifier = $process->getOutput();
+        $dockerIdentifier = trim($process->getOutput());
 
         return new DockerContainerInstance(
             $this,
