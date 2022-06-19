@@ -238,6 +238,17 @@ Files can be added to an instance with `addFiles`.
 $instance->addFiles($fileOrDirectoryOnHost, $pathInContainer);
 ```
 
+#### Get the docker inspect information
+
+The json decoded array from the docker inspect command can be retrieved with `inspect`.
+
+```php
+$inspectArray = $instance->inspect();
+$inspectArray[0]['State']['Status']; // Running, Starting etc.
+$inspectArray[0]['RestartCount']; // Integer
+$inspectArray[0]['NetworkSettings']['IPAddress']; // 172.17.0.2
+```
+
 #### Adding other functions on the docker instance
 
 The `Spatie\Docker\ContainerInstance` class is [macroable](https://github.com/spatie/macroable). This means you can add extra functions to it.
