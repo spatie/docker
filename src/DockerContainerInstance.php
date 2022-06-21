@@ -112,4 +112,16 @@ class DockerContainerInstance
 
         return $this;
     }
+
+    public function inspect(): array
+    {
+        $fullCommand = $this->config->getInspectCommand($this->getShortDockerIdentifier());
+
+        $process = Process::fromShellCommandline($fullCommand);
+        $process->run();
+
+        $json = trim($process->getOutput());
+
+        return json_decode($json, true);
+    }
 }

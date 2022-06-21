@@ -103,4 +103,18 @@ class FeatureTest extends TestCase
 
         $this->assertEquals('root', $userName);
     }
+
+    /** @test */
+    public function docker_inspect_information_can_be_retrieved()
+    {
+        $container = (new DockerContainer('spatie/docker'))
+            ->name('spatie_docker_test')
+            ->stopOnDestruct()
+            ->start();
+
+        $info = $container->inspect();
+        $this->assertEquals($container->getDockerIdentifier(), $info[0]['Id']);
+
+        $container->stop();
+    }
 }
