@@ -2,6 +2,18 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.8.0 - 2022-06-21
+
+### What's Changed
+
+- Add function to get the "docker inspect" information by @vedelaar in https://github.com/spatie/docker/pull/38
+
+### New Contributors
+
+- @vedelaar made their first contribution in https://github.com/spatie/docker/pull/38
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.7.2...1.8.0
+
 ## 1.7.2 - 2022-05-27
 
 ## What's Changed
