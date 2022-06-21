@@ -226,7 +226,7 @@ class DockerContainer
         $execCommand = [
             $this->getBaseCommand(),
             'inspect',
-            $dockerIdentifier
+            $dockerIdentifier,
         ];
 
         return implode(' ', $execCommand);
