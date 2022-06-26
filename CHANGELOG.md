@@ -2,6 +2,20 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.8.1 - 2022-06-26
+
+### What's Changed
+
+- Ignore phpcsfixer cache file by @szepeviktor in https://github.com/spatie/docker/pull/39
+- Allow to specify shell by @jkniest in https://github.com/spatie/docker/pull/40
+
+### New Contributors
+
+- @szepeviktor made their first contribution in https://github.com/spatie/docker/pull/39
+- @jkniest made their first contribution in https://github.com/spatie/docker/pull/40
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.8.0...1.8.1
+
 ## 1.8.0 - 2022-06-21
 
 ### What's Changed
