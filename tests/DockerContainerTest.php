@@ -184,6 +184,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_generate_exec_command_with_custom_shell()
+    {
+        $command = $this->container
+            ->shell('sh')
+            ->getExecCommand('abcdefghijkl', 'whoami');
+
+        $this->assertEquals('echo "whoami" | docker exec --interactive abcdefghijkl sh -', $command);
+    }
+
+    /** @test */
     public function it_can_generate_copy_command()
     {
         $command = $this->container
