@@ -18,6 +18,8 @@ class DockerContainer
 
     public bool $privileged = false;
 
+    public string $shell = 'bash';
+
     /** @var PortMapping[] */
     public array $portMappings = [];
 
@@ -76,6 +78,13 @@ class DockerContainer
     public function privileged(bool $privileged = true): self
     {
         $this->privileged = $privileged;
+
+        return $this;
+    }
+
+    public function shell(string $shell): self
+    {
+        $this->shell = $shell;
 
         return $this;
     }
@@ -203,7 +212,8 @@ class DockerContainer
             'exec',
             '--interactive',
             $dockerIdentifier,
-            'bash -',
+            $this->shell,
+            '-',
         ];
 
         return implode(' ', $execCommand);

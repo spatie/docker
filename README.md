@@ -75,6 +75,16 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Custom shell
+
+If the `bash` shell is not available in your docker image, you can specify an alternative shell.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->shell('sh')
+    ->start();
+```
+
 #### Naming the container
 
 You can name the container by passing the name as the second argument to the constructor.
