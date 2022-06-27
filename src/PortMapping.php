@@ -4,11 +4,15 @@ namespace Spatie\Docker;
 
 class PortMapping
 {
-    private int $portOnHost;
+    /** @var int|string */
+    private $portOnHost;
 
     private int $portOnDocker;
 
-    public function __construct(int $portOnHost, int $portOnDocker)
+    /**
+     * @param int|string $portOnHost
+     */
+    public function __construct($portOnHost, int $portOnDocker)
     {
         $this->portOnHost = $portOnHost;
 

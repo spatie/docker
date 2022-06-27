@@ -82,6 +82,17 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_map_string_ports()
+    {
+        $command = $this->container
+            ->mapPort('127.0.0.1:4848', 22)
+            ->mapPort('0.0.0.0:9000', 21)
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -p 127.0.0.1:4848:22 -p 0.0.0.0:9000:21 -d --rm spatie/docker', $command);
+    }
+
+    /** @test */
     public function it_can_set_environment_variables()
     {
         $command = $this->container
