@@ -2,6 +2,14 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.8.2 - 2022-06-28
+
+### What's Changed
+
+- Allow to have "string" ports by @jkniest in https://github.com/spatie/docker/pull/41
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.8.1...1.8.2
+
 ## 1.8.1 - 2022-06-26
 
 ### What's Changed
