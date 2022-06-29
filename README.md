@@ -167,6 +167,16 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Attaching a network to the container
+
+If you want to attach the container to a docker network, use `setNetwork` method:
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->network('my-network')
+    ->start();
+```
+
 #### Specify a remote docker host for execution
 
 You can set the host used for executing the container. The `docker` command line accepts a daemon socket string. To connect to a remote docker host via ssh, use the syntax `ssh://username@hostname`. Note that the proper SSH keys will already need to be configured for this work.
