@@ -137,6 +137,16 @@ class DockerContainerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_set_network()
+    {
+        $command = $this->container
+            ->network('my-network')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -d --rm --network my-network spatie/docker', $command);
+    }
+
+    /** @test */
     public function it_can_use_remote_docker_host()
     {
         $command = $this->container

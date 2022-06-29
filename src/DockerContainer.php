@@ -20,6 +20,8 @@ class DockerContainer
 
     public string $shell = 'bash';
 
+    public ?string $network = null;
+
     /** @var PortMapping[] */
     public array $portMappings = [];
 
@@ -85,6 +87,13 @@ class DockerContainer
     public function shell(string $shell): self
     {
         $this->shell = $shell;
+
+        return $this;
+    }
+
+    public function network(string $network): self
+    {
+        $this->network = $network;
 
         return $this;
     }
@@ -304,6 +313,10 @@ class DockerContainer
 
         if ($this->cleanUpAfterExit) {
             $extraOptions[] = '--rm';
+        }
+
+        if ($this->network) {
+            $extraOptions[] = '--network ' . $this->network;
         }
 
         return $extraOptions;
