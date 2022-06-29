@@ -276,6 +276,83 @@ $containerInstance = DockerContainer::create($imageName)->start();
 $containerInstance->whoAmI(); // returns of name of user in the docker container
 ````
 
+### Manage Docker Networks
+
+#### Creating a docker network
+
+To create a docker network, use the `DockerNetwork` class.
+
+```php
+$network = new DockerNetwork('my-network');
+$network->create();
+```
+
+#### Add optional arguments
+
+If you want to add optional arguments to the `docker network create` command, use `setOptionalArgs` method:
+
+```php
+$network = (new DockerNetwork($networkName))
+    ->setOptionalArgs('--ipv6', '--internal')
+    ->create();
+```
+These arguments will be places after `docker network create` immediately.
+
+#### Specify a remote docker host for execution
+
+You can set the host used for creating the network. The `docker` command line accepts a daemon socket string. To connect to a remote docker host via ssh, use the syntax `ssh://username@hostname`. Note that the proper SSH keys will already need to be configured for this work.
+
+```php
+$network = (new DockerNetwork($networkName))
+    ->remoteHost('ssh://username@hostname')
+    ->create();
+```
+
+#### Specify an alternative network driver
+
+By default new networks will be created with the bridge driver. The `driver` method gives the ability to override that.
+
+```php
+$network = (new DockerNetwork($networkName))
+    ->driver('macvlan')
+    ->create();
+```
+
+#### Getting the create command string
+
+You can get the string that will be executed when a network is created with the `getCreateCommand` function
+
+```php
+// returns "docker network create --driver bridge network-name"
+(new DockerNetwork($networkName))->getCreateCommand();
+```
+
+#### Removing networks
+
+You can also remove existing networks, using the `remove` command.
+
+```php
+(new DockerNetwork($networkName))->remove();
+```
+
+#### Getting the remove command string
+
+You can get the string that will be executed when a network is removed with the `getRemoveCommand` function
+
+```php
+// returns "docker network rm network-name"
+(new DockerNetwork($networkName))->getRemoveCommand();
+```
+
+#### Check if a network exists
+
+Using the `exists` method, you can check if a network already exists.
+
+```php
+// return true, if the network exists. Otherwise false
+(new DockerNetwork($networkName))->exists();
+```
+
 ### Testing
 
 Before running the tests for the first time, you must build the `spatie/docker` container with:
