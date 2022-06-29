@@ -91,7 +91,7 @@ class DockerContainer
         return $this;
     }
 
-    public function network(?string $network): self
+    public function network(string $network): self
     {
         $this->network = $network;
 
