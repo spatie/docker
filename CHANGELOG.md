@@ -2,6 +2,14 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.9.0 - 2022-06-29
+
+### What's Changed
+
+- Allow to specify a docker network by @jkniest in https://github.com/spatie/docker/pull/43
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.8.2...1.9.0
+
 ## 1.8.2 - 2022-06-28
 
 ### What's Changed
