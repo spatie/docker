@@ -169,7 +169,7 @@ $containerInstance = DockerContainer::create($imageName)
 
 #### Attaching a network to the container
 
-If you want to attach the container to a docker network, use `setNetwork` method:
+If you want to attach the container to a docker network, use `network` method:
 
 ```php
 $containerInstance = DockerContainer::create($imageName)
