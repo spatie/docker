@@ -254,11 +254,11 @@ class DockerContainer
         return implode(' ', $execCommand);
     }
 
-    public function start(): DockerContainerInstance
+    public function start(?float $timeout = 60): DockerContainerInstance
     {
         $command = $this->getStartCommand();
 
-        $process = Process::fromShellCommandline($command);
+        $process = Process::fromShellCommandline($command, null, null, null, $timeout);
 
         $process->run();
 
