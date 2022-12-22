@@ -60,7 +60,7 @@ class DockerContainerTest extends TestCase
         $this->assertEquals('docker run -d spatie/docker', $command);
     }
 
-    /** @test **/
+    /** @test * */
     public function it_can_be_named()
     {
         $command = $this->container
@@ -111,7 +111,8 @@ class DockerContainerTest extends TestCase
             ->setVolume('/data', '/data')
             ->getStartCommand();
 
-        $this->assertEquals('docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker', $command);
+        $this->assertEquals('docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker',
+            $command);
     }
 
     /** @test */
@@ -123,7 +124,8 @@ class DockerContainerTest extends TestCase
             ->setLabel('name', 'spatie')
             ->getStartCommand();
 
-        $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker', $command);
+        $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker',
+            $command);
     }
 
     /** @test */
@@ -134,6 +136,16 @@ class DockerContainerTest extends TestCase
             ->getStartCommand();
 
         $this->assertEquals('docker run -it -a -i -t -d --rm spatie/docker', $command);
+    }
+
+    /** @test */
+    public function it_can_set_commands()
+    {
+        $command = $this->container
+            ->setCommands('--api.insecure=true', '--entrypoints.web.address=:80')
+            ->getStartCommand();
+
+        $this->assertEquals('docker run -d --rm spatie/docker --api.insecure=true --entrypoints.web.address=:80', $command);
     }
 
     /** @test */
@@ -201,7 +213,8 @@ class DockerContainerTest extends TestCase
             ->remoteHost('ssh://username@host')
             ->getExecCommand('abcdefghijkl', 'whoami');
 
-        $this->assertEquals('echo "whoami" | docker -H ssh://username@host exec --interactive abcdefghijkl bash -', $command);
+        $this->assertEquals('echo "whoami" | docker -H ssh://username@host exec --interactive abcdefghijkl bash -',
+            $command);
     }
 
     /** @test */
