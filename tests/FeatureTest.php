@@ -1,120 +1,97 @@
 <?php
 
-namespace Spatie\Docker\Tests;
+declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
 use Spatie\Docker\DockerContainer;
 use Spatie\Docker\DockerContainerInstance;
 use Spatie\Docker\Exceptions\CouldNotStartDockerContainer;
 use Spatie\Ssh\Ssh;
 
-class FeatureTest extends TestCase
-{
-    private DockerContainer $container;
+beforeEach(function () {
+    $this->container = (new DockerContainer('spatie/docker'))
+        ->name('spatie_docker_test')
+        ->mapPort(4848, 22)
+        ->stopOnDestruct();
 
-    private Ssh $ssh;
+    $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
+        ->usePrivateKey(__DIR__.'/keys/spatie_docker_package_id_rsa');
+});
 
-    public function setUp(): void
-    {
-        parent::setUp();
+it('can start a container', function () {
+    $container = $this->container->start();
 
-        $this->container = (new DockerContainer('spatie/docker'))
-            ->name('spatie_docker_test')
-            ->mapPort(4848, 22)
-            ->stopOnDestruct();
+    expect(strlen($container->getDockerIdentifier()))->toBeGreaterThan(0);
+});
 
-        $this->ssh = (new Ssh('root', '0.0.0.0', 4848))
-            ->usePrivateKey(__DIR__.'/keys/spatie_docker_package_id_rsa');
-    }
+it('a public key can be added to a running container', function () {
+    $container = (new DockerContainer('spatie/docker'))
+        ->name('spatie_docker_test')
+        ->mapPort(4848, 22)
+        ->stopOnDestruct()
+        ->start()
+        ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub');
 
-    /** @test */
-    public function it_can_start_a_container()
-    {
-        $container = $this->container->start();
+    $process = $this->ssh->execute('whoami');
 
-        $this->assertGreaterThan(0, strlen($container->getDockerIdentifier()));
-    }
+    expect(trim($process->getOutput()))->toEqual('root');
 
-    /** @test */
-    public function a_public_key_can_be_added_to_a_running_container()
-    {
-        $container = (new DockerContainer('spatie/docker'))
-            ->name('spatie_docker_test')
-            ->mapPort(4848, 22)
-            ->stopOnDestruct()
-            ->start()
-            ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub');
+    $container->stop();
+});
 
-        $process = $this->ssh->execute('whoami');
+it('files can be added to the container', function () {
+    $container = $this->container->start()
+        ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub')
+        ->addFiles(__DIR__.'/stubs', '/test');
 
-        $this->assertEquals('root', trim($process->getOutput()));
+    $process = $this->ssh->execute([
+        'cd /test',
+        'find .',
+    ]);
 
-        $container->stop();
-    }
+    $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
 
-    /** @test */
-    public function files_can_be_added_to_the_container()
-    {
-        $container = $this->container->start()
-            ->addPublicKey(__DIR__.'/keys/spatie_docker_package_id_rsa.pub')
-            ->addFiles(__DIR__.'/stubs', '/test');
+    expect($filesOnContainer)->toEqualCanonicalizing([
+        '.',
+        './subDirectory',
+        './subDirectory/1.txt',
+        './subDirectory/2.txt',
+    ]);
 
-        $process = $this->ssh->execute([
-            'cd /test',
-            'find .',
-        ]);
+    $container->stop();
+});
 
-        $filesOnContainer = array_filter(explode(PHP_EOL, $process->getOutput()));
+it('will throw an exception if the container could not start', function () {
+    $this->expectException(CouldNotStartDockerContainer::class);
 
-        $this->assertEqualsCanonicalizing([
-            '.',
-            './subDirectory',
-            './subDirectory/1.txt',
-            './subDirectory/2.txt',
-        ], $filesOnContainer);
+    (new DockerContainer('non-existing-image'))->start();
+});
 
-        $container->stop();
-    }
+it('the docker container is macroable', function () {
+    DockerContainerInstance::macro('whoAmI', function () {
+        /** @var \Symfony\Component\Process\Process $process */
+        $process = $this->execute('whoami');
 
-    /** @test */
-    public function it_will_throw_an_exception_if_the_container_could_not_start()
-    {
-        $this->expectException(CouldNotStartDockerContainer::class);
+        return trim($process->getOutput());
+    });
 
-        (new DockerContainer('non-existing-image'))->start();
-    }
+    $userName = (new DockerContainer('spatie/docker'))
+        ->name('spatie_docker_test')
+        ->mapPort(4848, 22)
+        ->stopOnDestruct()
+        ->start()
+        ->whoAmI();
 
-    /** @test */
-    public function the_docker_container_is_macroable()
-    {
-        DockerContainerInstance::macro('whoAmI', function () {
-            /** @var \Symfony\Component\Process\Process $process */
-            $process = $this->execute('whoami');
+    expect($userName)->toEqual('root');
+});
 
-            return trim($process->getOutput());
-        });
+it('docker inspect information can be retrieved', function () {
+    $container = (new DockerContainer('spatie/docker'))
+        ->name('spatie_docker_test')
+        ->stopOnDestruct()
+        ->start();
 
-        $userName = (new DockerContainer('spatie/docker'))
-            ->name('spatie_docker_test')
-            ->mapPort(4848, 22)
-            ->stopOnDestruct()
-            ->start()
-            ->whoAmI();
+    $info = $container->inspect();
+    expect($info[0]['Id'])->toEqual($container->getDockerIdentifier());
 
-        $this->assertEquals('root', $userName);
-    }
-
-    /** @test */
-    public function docker_inspect_information_can_be_retrieved()
-    {
-        $container = (new DockerContainer('spatie/docker'))
-            ->name('spatie_docker_test')
-            ->stopOnDestruct()
-            ->start();
-
-        $info = $container->inspect();
-        $this->assertEquals($container->getDockerIdentifier(), $info[0]['Id']);
-
-        $container->stop();
-    }
-}
+    $container->stop();
+});
