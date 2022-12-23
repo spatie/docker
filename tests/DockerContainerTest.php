@@ -111,8 +111,10 @@ class DockerContainerTest extends TestCase
             ->setVolume('/data', '/data')
             ->getStartCommand();
 
-        $this->assertEquals('docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker',
-            $command);
+        $this->assertEquals(
+            'docker run -v /on/my/host:/on/my/container -v /data:/data -d --rm spatie/docker',
+            $command
+        );
     }
 
     /** @test */
@@ -124,8 +126,10 @@ class DockerContainerTest extends TestCase
             ->setLabel('name', 'spatie')
             ->getStartCommand();
 
-        $this->assertEquals('docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker',
-            $command);
+        $this->assertEquals(
+            'docker run -l traefik.enable=true -l foo=bar -l name=spatie -d --rm spatie/docker',
+            $command
+        );
     }
 
     /** @test */
@@ -213,8 +217,10 @@ class DockerContainerTest extends TestCase
             ->remoteHost('ssh://username@host')
             ->getExecCommand('abcdefghijkl', 'whoami');
 
-        $this->assertEquals('echo "whoami" | docker -H ssh://username@host exec --interactive abcdefghijkl bash -',
-            $command);
+        $this->assertEquals(
+            'echo "whoami" | docker -H ssh://username@host exec --interactive abcdefghijkl bash -',
+            $command
+        );
     }
 
     /** @test */
