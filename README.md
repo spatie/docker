@@ -145,6 +145,17 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Adding Commands
+
+You can add commands using the `setCommands` method.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setCommands('--api.insecure=true', '--providers.docker=true')
+    ->start();
+```
+These commands will be placed at the end of to the `docker run` command.
+
 #### Add optional arguments
 
 If you want to add optional arguments to the `docker run` command, use `setOptionalArgs` method:
@@ -154,7 +165,7 @@ $containerInstance = DockerContainer::create($imageName)
     ->setOptionalArgs('-it', '-a')
     ->start();
 ```
-These arguments will be places after `docker run` immediately.
+These arguments will be placed after `docker run` immediately.
 
 
 #### Automatically stopping the container after PHP exists

@@ -44,6 +44,8 @@ class DockerContainer
 
     public array $optionalArgs = [];
 
+    public array $commands = [];
+
     public function __construct(string $image, string $name = '')
     {
         $this->image = $image;
@@ -157,6 +159,13 @@ class DockerContainer
         return $this;
     }
 
+    public function setCommands(...$args): self
+    {
+        $this->commands = $args;
+
+        return $this;
+    }
+
     public function stopOnDestruct(bool $stopOnDestruct = true): self
     {
         $this->stopOnDestruct = $stopOnDestruct;
@@ -195,6 +204,7 @@ class DockerContainer
             'run',
             ...$this->getExtraOptions(),
             $this->image,
+            ...$this->commands,
         ];
 
         if ($this->command !== '') {
