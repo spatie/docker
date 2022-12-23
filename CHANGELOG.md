@@ -2,6 +2,18 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.10.0 - 2022-12-23
+
+### What's Changed
+
+- Adds support for commands to be passed with start/run command by @tiagof in https://github.com/spatie/docker/pull/49
+
+### New Contributors
+
+- @tiagof made their first contribution in https://github.com/spatie/docker/pull/49
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.9.0...1.10.0
+
 ## 1.9.0 - 2022-06-29
 
 ### What's Changed
