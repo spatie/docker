@@ -2,6 +2,22 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.10.1 - 2023-03-03
+
+### What's Changed
+
+- Refactor tests to pest by @AyoobMH in https://github.com/spatie/docker/pull/50
+- updated Github shield link by @sfolador in https://github.com/spatie/docker/pull/51
+- Update Macroable Dependency by @inmanturbo in https://github.com/spatie/docker/pull/52
+
+### New Contributors
+
+- @AyoobMH made their first contribution in https://github.com/spatie/docker/pull/50
+- @sfolador made their first contribution in https://github.com/spatie/docker/pull/51
+- @inmanturbo made their first contribution in https://github.com/spatie/docker/pull/52
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.10.0...1.10.1
+
 ## 1.10.0 - 2022-12-23
 
 ### What's Changed
