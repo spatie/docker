@@ -230,6 +230,12 @@ You can execute multiple command in one go by passing an array.
 $process = $instance->execute([$command, $anotherCommand]);
 ```
 
+To change the process timeout you can pass a second parameter to the `execute` method _(the default is 60s)_.
+
+```php
+$process = $instance->execute($command, 3600);
+```
+
 The execute method returns an instance of [`Symfony/Process`](https://symfony.com/doc/current/components/process.html).
 
 You can check if your command ran successfully using the `isSuccessful` $method

@@ -68,10 +68,11 @@ class DockerContainerInstance
 
     /**
      * @param string|array $command
+     * @param float|null $timeout
      *
      * @return \Symfony\Component\Process\Process
      */
-    public function execute($command): Process
+    public function execute($command, ?float $timeout = 60): Process
     {
         if (is_array($command)) {
             $command = implode(';', $command);
@@ -80,6 +81,8 @@ class DockerContainerInstance
         $fullCommand = $this->config->getExecCommand($this->getShortDockerIdentifier(), $command);
 
         $process = Process::fromShellCommandline($fullCommand);
+
+        $process->setTimeout($timeout);
 
         $process->run();
 
