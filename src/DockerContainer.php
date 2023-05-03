@@ -46,6 +46,8 @@ class DockerContainer
 
     public array $commands = [];
 
+    protected float $startCommandTimeout = 60;
+
     public function __construct(string $image, string $name = '')
     {
         $this->image = $image;
@@ -270,6 +272,8 @@ class DockerContainer
 
         $process = Process::fromShellCommandline($command);
 
+        $process->setTimeout($this->startCommandTimeout);
+
         $process->run();
 
         if (! $process->isSuccessful()) {
@@ -283,6 +287,17 @@ class DockerContainer
             $dockerIdentifier,
             $this->name,
         );
+    }
+
+    public function setStartCommandTimeout(float $timeout): self
+    {
+        $this->startCommandTimeout = $timeout;
+        return $this;
+    }
+
+    public function getStartCommandTimeout(): float
+    {
+        return $this->startCommandTimeout;
     }
 
     protected function getExtraOptions(): array

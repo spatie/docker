@@ -214,6 +214,16 @@ You can get the string that will be executed when a container is started with th
 DockerContainer::create($imageName)->getStartCommand();
 ```
 
+#### Changing the start command timeout
+
+You can change the timeout for the start command with the `setStartCommandTimeout` function _(the default is 60s)_.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setStartCommandTimeout(120)
+    ->start();
+```
+
 ### Available methods on the docker container instance
 
 #### Executing a command
