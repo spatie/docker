@@ -292,6 +292,7 @@ class DockerContainer
     public function setStartCommandTimeout(float $timeout): self
     {
         $this->startCommandTimeout = $timeout;
+
         return $this;
     }
 
