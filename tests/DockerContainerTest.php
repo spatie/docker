@@ -188,3 +188,14 @@ it('can generate copy command with remote host', function () {
 
     expect($command)->toEqual('docker -H ssh://username@host cp /home/spatie abcdefghijkl:/mnt/spatie');
 });
+
+it('has a default start command timeout of 60s', function () {
+    expect($this->container->getStartCommandTimeout())->toEqual(60);
+});
+
+it('can set a custom start command timeout', function () {
+    $return = $this->container->setStartCommandTimeout(3600);
+
+    expect($this->container->getStartCommandTimeout())->toEqual(3600);
+    expect($return)->toEqual($this->container);
+});

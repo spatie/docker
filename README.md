@@ -214,6 +214,16 @@ You can get the string that will be executed when a container is started with th
 DockerContainer::create($imageName)->getStartCommand();
 ```
 
+#### Changing the start command timeout
+
+You can change the timeout for the start command with the `setStartCommandTimeout` function _(the default is 60s)_.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->setStartCommandTimeout(120)
+    ->start();
+```
+
 ### Available methods on the docker container instance
 
 #### Executing a command
@@ -228,6 +238,12 @@ You can execute multiple command in one go by passing an array.
 
 ```php
 $process = $instance->execute([$command, $anotherCommand]);
+```
+
+To change the process timeout you can pass a second parameter to the `execute` method _(the default is 60s)_.
+
+```php
+$process = $instance->execute($command, 3600);
 ```
 
 The execute method returns an instance of [`Symfony/Process`](https://symfony.com/doc/current/components/process.html).
