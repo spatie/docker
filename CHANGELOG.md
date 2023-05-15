@@ -2,6 +2,18 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.11.0 - 2023-05-15
+
+### What's Changed
+
+- Support changing `execute` timeout by @joelambert in https://github.com/spatie/docker/pull/53
+
+### New Contributors
+
+- @joelambert made their first contribution in https://github.com/spatie/docker/pull/53
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.10.1...1.11.0
+
 ## 1.10.1 - 2023-03-03
 
 ### What's Changed
