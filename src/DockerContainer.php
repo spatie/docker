@@ -18,6 +18,8 @@ class DockerContainer
 
     public bool $privileged = false;
 
+    public string $dockerBin = 'docker';
+
     public string $shell = 'bash';
 
     public ?string $network = null;
@@ -84,6 +86,13 @@ class DockerContainer
     public function privileged(bool $privileged = true): self
     {
         $this->privileged = $privileged;
+
+        return $this;
+    }
+
+    public function dockerBin(string $dockerBin): self
+    {
+        $this->dockerBin = $dockerBin;
 
         return $this;
     }
@@ -192,7 +201,7 @@ class DockerContainer
     public function getBaseCommand(): string
     {
         $baseCommand = [
-            'docker',
+            $this->dockerBin,
             ...$this->getExtraDockerOptions(),
         ];
 
