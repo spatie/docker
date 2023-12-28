@@ -2,6 +2,20 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.12.0 - 2023-12-28
+
+### What's Changed
+
+* Allow Symfony 7.x by @thecaliskan in https://github.com/spatie/docker/pull/55
+* add custom docker bin option by @dimitri-koenig in https://github.com/spatie/docker/pull/56
+
+### New Contributors
+
+* @thecaliskan made their first contribution in https://github.com/spatie/docker/pull/55
+* @dimitri-koenig made their first contribution in https://github.com/spatie/docker/pull/56
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.11.0...1.12.0
+
 ## 1.11.0 - 2023-05-15
 
 ### What's Changed
