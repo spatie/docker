@@ -82,6 +82,16 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+#### Custom docker binary
+
+If the `docker` binary is not globally available, you can specify the exact path.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->dockerBin('/usr/local/bin/docker')
+    ->start();
+```
+
 #### Naming the container
 
 You can name the container by passing the name as the second argument to the constructor.

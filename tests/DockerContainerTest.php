@@ -174,6 +174,14 @@ it('can generate exec command with custom shell', function () {
     expect($command)->toEqual('echo "whoami" | docker exec --interactive abcdefghijkl sh -');
 });
 
+it('can generate exec command with custom docker bin', function () {
+    $command = $this->container
+        ->dockerBin('/usr/local/bin/docker')
+        ->getExecCommand('abcdefghijkl', 'whoami');
+
+    expect($command)->toEqual('echo "whoami" | /usr/local/bin/docker exec --interactive abcdefghijkl bash -');
+});
+
 it('can generate copy command', function () {
     $command = $this->container
         ->getCopyCommand('abcdefghijkl', '/home/spatie', '/mnt/spatie');
