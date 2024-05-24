@@ -135,9 +135,9 @@ class DockerContainer
     /**
      * @param int|string $portOnHost
      */
-    public function mapPort($portOnHost, int $portOnDocker): self
+    public function mapPort($portOnHost, int $portOnDocker, string $protocol = 'tcp'): self
     {
-        $this->portMappings[] = new PortMapping($portOnHost, $portOnDocker);
+        $this->portMappings[] = new PortMapping($portOnHost, $portOnDocker, $protocol);
 
         return $this;
     }
@@ -285,7 +285,7 @@ class DockerContainer
 
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             throw CouldNotStartDockerContainer::processFailed($this, $process);
         }
 
