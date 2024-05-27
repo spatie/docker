@@ -56,7 +56,7 @@ it('can map ports', function () {
         ->mapPort(9000, 21)
         ->getStartCommand();
 
-    expect($command)->toEqual('docker run -p 4848:22 -p 9000:21 -d --rm spatie/docker');
+    expect($command)->toEqual('docker run -p 4848:22/tcp -p 9000:21/tcp -d --rm spatie/docker');
 });
 
 it('can map string ports', function () {
@@ -65,7 +65,16 @@ it('can map string ports', function () {
         ->mapPort('0.0.0.0:9000', 21)
         ->getStartCommand();
 
-    expect($command)->toEqual('docker run -p 127.0.0.1:4848:22 -p 0.0.0.0:9000:21 -d --rm spatie/docker');
+    expect($command)->toEqual('docker run -p 127.0.0.1:4848:22/tcp -p 0.0.0.0:9000:21/tcp -d --rm spatie/docker');
+});
+
+it('can map string ports with udp set', function () {
+    $command = $this->container
+        ->mapPort('127.0.0.1:69', 69, 'udp')
+        ->mapPort('0.0.0.0:69', 69, 'udp')
+        ->getStartCommand();
+
+    expect($command)->toEqual('docker run -p 127.0.0.1:69:69/udp -p 0.0.0.0:69:69/udp -d --rm spatie/docker');
 });
 
 it('can set environment variables', function () {
