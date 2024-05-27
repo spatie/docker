@@ -2,6 +2,18 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.13.0 - 2024-05-27
+
+### What's Changed
+
+* Add optional UDP protocol to port mapping class with TCP as default protocol by @stephenstack in https://github.com/spatie/docker/pull/58
+
+### New Contributors
+
+* @stephenstack made their first contribution in https://github.com/spatie/docker/pull/58
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.12.0...1.13.0
+
 ## 1.12.0 - 2023-12-28
 
 ### What's Changed
