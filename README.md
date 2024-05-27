@@ -119,6 +119,14 @@ $containerInstance = DockerContainer::create($imageName)
     ->start();
 ```
 
+The default protocol for the port mapping is TCP. If you want to use UDP, you can pass it as the third argument.
+
+```php
+$containerInstance = DockerContainer::create($imageName)
+    ->mapPort($portOnHost, $portOnContainer, 'udp')
+    ->start();
+```
+
 #### Environment variables
 
 You can set environment variables using the `setEnvironmentVariable` method. To add multiple arguments, just call `setEnvironmentVariable` multiple times.
