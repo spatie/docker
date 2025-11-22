@@ -24,13 +24,13 @@
     "require": {
         "php": "^7.4|^8.0",
         "spatie/macroable": "^1.0|^2.0",
-        "symfony/process": "^5.3|^6.0|^7.0"
+        "symfony/process": "^5.3|^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "pestphp/pest": "^1.22",
         "phpunit/phpunit": "^9.4",
         "spatie/ssh": "^1.7.0",
-        "symfony/var-dumper": "^5.3"
+        "symfony/var-dumper": "^5.3|^6.0|^7.0|^8.0"
     },
     "autoload": {
         "psr-4": {
