@@ -2,6 +2,19 @@
 
 All notable changes to `docker` will be documented in this file
 
+## 1.13.1 - 2025-11-25
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/docker/pull/61
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/docker/pull/63
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/docker/pull/61
+
+**Full Changelog**: https://github.com/spatie/docker/compare/1.13.0...1.13.1
+
 ## 1.13.0 - 2024-05-27
 
 ### What's Changed
