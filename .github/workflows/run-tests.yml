@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Install sed
         run: sudo apt-get install sed
@@ -28,12 +28,6 @@ jobs:
 
       - name: Patch SSH Daemon
         run: sudo sed -ri 's/^#?   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ssh/ssh_config
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
