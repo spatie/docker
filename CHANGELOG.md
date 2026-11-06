@@ -2,19 +2,6 @@
 
 All notable changes to `docker` will be documented in this file
 
-## 2.0.0 - 2026-11-06
-
-### Breaking changes
-
-* Requires PHP 8.4 or higher. Support for PHP 8.3 and below has been dropped; stay on 1.x if you need it.
-* Requires `spatie/macroable` ^2.0 and `symfony/process` ^7.0 or ^8.0.
-
-### What's Changed
-
-* Require PHP 8.4+ and test PHP 8.4, 8.5 and 8.6 by @freekmurze in https://github.com/spatie/docker/pull/64
-
-**Full Changelog**: https://github.com/spatie/docker/compare/1.13.1...2.0.0
-
 ## 1.13.1 - 2025-11-25
 
 ### What's Changed
