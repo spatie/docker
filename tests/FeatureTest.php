@@ -15,6 +15,22 @@ beforeEach(function () {
         ->usePrivateKey(__DIR__.'/keys/spatie_docker_package_id_rsa');
 });
 
+afterEach(function () {
+    // Containers started with --rm are removed asynchronously after they stop,
+    // so wait until the name is free before the next test reuses it.
+    for ($attempt = 0; $attempt < 100; $attempt++) {
+        exec('docker inspect spatie_docker_test > /dev/null 2>&1', $output, $exitCode);
+
+        if ($exitCode !== 0) {
+            return;
+        }
+
+        exec('docker rm -f spatie_docker_test > /dev/null 2>&1');
+
+        usleep(100_000);
+    }
+});
+
 it('can start a container', function () {
     $container = $this->container->start();
 
